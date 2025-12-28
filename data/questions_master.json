@@ -317,7 +317,7 @@
         "Fix one number and reduce to 2Sum"
       ]
     },
-    "display_markdown": "### 3Sum\\n\\nGiven an integer array nums, return all the triplets [nums[i], nums[j], nums[k]] such that i ≠ j ≠ k and nums[i] + nums[j] + nums[k] == 0.\\n\\nNotice that the solution set must not contain duplicate triplets.\\n\\n**Example:**\\n```\\nInput: nums = [-1,0,1,2,-1,-4]\\nOutput: [[-1,-1,2],[-1,0,1]]\\nExplanation: \\nnums[0] + nums[1] + nums[2] = (-1) + 0 + 1 = 0\\nnums[1] + nums[2] + nums[4] = 0 + 1 + (-1) = 0\\nnums[0] + nums[3] + nums[4] = (-1) + 2 + (-1) = 0\\nThe distinct triplets are [-1,0,1] and [-1,-1,2].\\n```\\n\\n**Constraints:**\\n- 3 <= nums.length <= 3000\\n- -10^5 <= nums[i] <= 10^5"
+    "display_markdown": "### 3Sum\n\nGiven an integer array nums, return all the triplets [nums[i], nums[j], nums[k]] such that i ≠ j ≠ k and nums[i] + nums[j] + nums[k] == 0.\n\nNotice that the solution set must not contain duplicate triplets.\n\n**Example:**\n```\nInput: nums = [-1,0,1,2,-1,-4]\nOutput: [[-1,-1,2],[-1,0,1]]\nExplanation: \nnums[0] + nums[1] + nums[2] = (-1) + 0 + 1 = 0\nnums[1] + nums[2] + nums[4] = 0 + 1 + (-1) = 0\nnums[0] + nums[3] + nums[4] = (-1) + 2 + (-1) = 0\nThe distinct triplets are [-1,0,1] and [-1,-1,2].\n```\n\n**Constraints:**\n- 3 <= nums.length <= 3000\n- -10^5 <= nums[i] <= 10^5"
   },
   {
     "id": "14",
@@ -351,7 +351,7 @@
         "Horizontal scanning approach"
       ]
     },
-    "display_markdown": "### Longest Common Prefix\\n\\nWrite a function to find the longest common prefix string amongst an array of strings.\\n\\nIf there is no common prefix, return an empty string \\\"\\\".\\n\\n**Example:**\\n```\\nInput: strs = [\\\"flower\\\",\\\"flow\\\",\\\"flight\\\"]\\nOutput: \\\"fl\\\"\\n\\nInput: strs = [\\\"dog\\\",\\\"racecar\\\",\\\"car\\\"]\\nOutput: \\\"\\\"\\nExplanation: There is no common prefix among the input strings.\\n```\\n\\n**Constraints:**\\n- 1 <= strs.length <= 200\\n- 0 <= strs[i].length <= 200\\n- strs[i] consists of only lowercase English letters"
+    "display_markdown": "### Longest Common Prefix\n\nWrite a function to find the longest common prefix string amongst an array of strings.\n\nIf there is no common prefix, return an empty string \"\".\n\n**Example:**\n```\nInput: strs = [\"flower\",\"flow\",\"flight\"]\nOutput: \"fl\"\n\nInput: strs = [\"dog\",\"racecar\",\"car\"]\nOutput: \"\"\nExplanation: There is no common prefix among the input strings.\n```\n\n**Constraints:**\n- 1 <= strs.length <= 200\n- 0 <= strs[i].length <= 200\n- strs[i] consists of only lowercase English letters"
   },
   {
     "id": "26",

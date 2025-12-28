@@ -144,16 +144,45 @@ app.post('/analyze', async (req, res) => {
             contents: [{
                 role: 'user',
                 parts: [{
-                    text: `Evaluate this coding attempt for: ${questionTitle}.
-                    Expected Logic/Code: ${JSON.stringify(judgeContext)}
-                    User Code: ${code}
-                    User Explanation: ${transcript}
-
-                    Return only a JSON object with:
-                    - score (0-100)
-                    - breakdown (correctness, efficiency, communication as 0-100)
-                    - feedback (Detailed constructive advice)
-                    - report (A short summary of performance)
+                    text: `You are an expert technical interview judge evaluating a candidate's coding solution.
+                    
+                    Question: ${questionTitle}
+                    Expected Solution/Logic: ${JSON.stringify(judgeContext)}
+                    
+                    Candidate's Code:
+                    ${code}
+                    
+                    Candidate's Verbal Explanation:
+                    ${transcript}
+                    
+                    Analyze and evaluate comprehensively. Return ONLY a valid JSON object with this exact structure:
+                    {
+                        "score": <number 0-100>,
+                        "breakdown": {
+                            "correctness": <number 0-100>,
+                            "efficiency": <number 0-100>,
+                            "communication": <number 0-100>
+                        },
+                        "complexity": {
+                            "time": "<Big O notation with brief explanation>",
+                            "space": "<Big O notation with brief explanation>",
+                            "optimal": <boolean - true if optimal, false otherwise>
+                        },
+                        "improvements": {
+                            "code": ["<specific code improvement 1>", "<specific code improvement 2>"],
+                            "communication": ["<specific communication improvement 1>", "<specific communication improvement 2>"],
+                            "approach": "<alternative approach if applicable, or 'Current approach is optimal'>"
+                        },
+                        "feedback": "<Detailed constructive advice covering correctness, efficiency, and communication>",
+                        "report": "<A concise 2-3 sentence summary of overall performance>"
+                    }
+                    
+                    Evaluation Guidelines:
+                    - Correctness: Does the code solve the problem? Are edge cases handled?
+                    - Efficiency: Time and space complexity analysis. Compare to optimal solution.
+                    - Communication: Was the explanation clear, structured, and technically accurate?
+                    - Be specific in improvements - mention exact lines or concepts to address
+                    - If complexity can be improved, suggest how in the improvements section
                     `
                 }]
             }],
@@ -161,12 +190,22 @@ app.post('/analyze', async (req, res) => {
                 responseMimeType: "application/json",
             }
         };
+        
         const result = await generativeModel.generateContent(prompt);
         const response = await result.response;
         const text = response.candidates[0].content.parts[0].text;
 
         console.log("AI Evaluation Complete.");
-        res.json(JSON.parse(text));
+        const evaluation = JSON.parse(text);
+        
+        // Optional: Add validation to ensure all fields are present
+        if (!evaluation.complexity || !evaluation.improvements) {
+            console.warn("Incomplete evaluation received, using defaults");
+            evaluation.complexity = evaluation.complexity || { time: "N/A", space: "N/A", optimal: false };
+            evaluation.improvements = evaluation.improvements || { code: [], communication: [], approach: "N/A" };
+        }
+        
+        res.json(evaluation);
 
     } catch (error) {
         console.error("VERTEX ANALYSIS ERROR:", error.message);

@@ -91,8 +91,7 @@ function App() {
       const result = response.data;
       
       // VERTEX AI REPORT POPUP
-     setAnalysisResult(result);
-
+      setAnalysisResult(result);
       
       setStatus("Analysis Complete!");
     } catch (err) {
@@ -103,7 +102,7 @@ function App() {
         "Analysis failed due to Vertex AI response error"
       );
     }
-  };
+};
 
   useEffect(() => {
     axios.get("http://localhost:3000/filters")
@@ -193,37 +192,124 @@ function App() {
               </button>
 
               {analysisResult && (
-              <div style={{
-                marginTop: '20px',
-                color: 'black',
-                padding: '20px',
-                background: '#ffffff',
-                border: '1px solid #ddd',
-                borderRadius: '8px'
+  <div style={{
+    marginTop: '20px',
+    color: 'black',
+    padding: '20px',
+    background: '#ffffff',
+    border: '1px solid #ddd',
+    borderRadius: '8px'
+  }}>
+    <h3 style={{ color: '#188038' }}>Interview Evaluation</h3>
+
+    <p><strong>Overall Score:</strong> {analysisResult.score}/100</p>
+
+    <ul>
+      <li>✅ Correctness: {analysisResult.breakdown?.correctness || 0}%</li>
+      <li>⚡ Efficiency: {analysisResult.breakdown?.efficiency || 0}%</li>
+      <li>🗣️ Communication: {analysisResult.breakdown?.communication || 0}%</li>
+    </ul>
+
+    {/* Complexity Analysis Section */}
+    {analysisResult.complexity && (
+      <div style={{
+        marginTop: '15px',
+        padding: '15px',
+        background: '#f8f9fa',
+        borderRadius: '6px',
+        border: '1px solid #e0e0e0'
+      }}>
+        <h4 style={{ marginTop: 0, color: '#1967d2' }}>⏱️ Complexity Analysis</h4>
+        <div style={{ marginLeft: '10px' }}>
+          <p>
+            <strong>Time Complexity:</strong> {analysisResult.complexity.time}
+          </p>
+          <p>
+            <strong>Space Complexity:</strong> {analysisResult.complexity.space}
+          </p>
+          {analysisResult.complexity.optimal !== undefined && (
+            <p>
+              <strong>Solution Status:</strong>{' '}
+              <span style={{
+                color: analysisResult.complexity.optimal ? '#188038' : '#d93025',
+                fontWeight: 'bold'
               }}>
-                <h3 style={{ color: '#188038' }}>Interview Evaluation</h3>
+                {analysisResult.complexity.optimal ? '✓ Optimal' : '⚠ Can be optimized'}
+              </span>
+            </p>
+          )}
+        </div>
+      </div>
+    )}
 
-                <p><strong>Overall Score:</strong> {analysisResult.score}/100</p>
+    {/* Improvements Section */}
+    {analysisResult.improvements && (
+      <div style={{
+        marginTop: '15px',
+        padding: '15px',
+        background: '#fff4e5',
+        borderRadius: '6px',
+        border: '1px solid #ffd666'
+      }}>
+        <h4 style={{ marginTop: 0, color: '#f57c00' }}>🔧 Areas for Improvement</h4>
+        
+        {analysisResult.improvements.code && analysisResult.improvements.code.length > 0 && (
+          <div style={{ marginBottom: '12px' }}>
+            <strong>Code Improvements:</strong>
+            <ul style={{ marginTop: '5px', marginBottom: '5px' }}>
+              {analysisResult.improvements.code.map((improvement, index) => (
+                <li key={index}>{improvement}</li>
+              ))}
+            </ul>
+          </div>
+        )}
+        
+        {analysisResult.improvements.communication && analysisResult.improvements.communication.length > 0 && (
+          <div style={{ marginBottom: '12px' }}>
+            <strong>Communication Improvements:</strong>
+            <ul style={{ marginTop: '5px', marginBottom: '5px' }}>
+              {analysisResult.improvements.communication.map((improvement, index) => (
+                <li key={index}>{improvement}</li>
+              ))}
+            </ul>
+          </div>
+        )}
+        
+        {analysisResult.improvements.approach && 
+         analysisResult.improvements.approach !== 'Current approach is optimal' && (
+          <div>
+            <strong>Alternative Approach:</strong>
+            <p style={{ marginTop: '5px', marginLeft: '10px', fontStyle: 'italic' }}>
+              {analysisResult.improvements.approach}
+            </p>
+          </div>
+        )}
+      </div>
+    )}
 
-                <ul>
-                  <li>✅ Correctness: {analysisResult.breakdown.correctness}%</li>
-                  <li>⚡ Efficiency: {analysisResult.breakdown.efficiency}%</li>
-                  <li>🗣️ Communication: {analysisResult.breakdown.communication}%</li>
-                </ul>
+    {/* Report Summary */}
+    {analysisResult.report && (
+      <div style={{ marginTop: '15px' }}>
+        <h4>📊 AI Summary</h4>
+        <p style={{ 
+          background: '#e8f5e9', 
+          padding: '12px', 
+          borderRadius: '6px',
+          borderLeft: '4px solid #188038'
+        }}>
+          {analysisResult.report}
+        </p>
+      </div>
+    )}
 
+    {/* Detailed Feedback */}
+    <div style={{ marginTop: '15px' }}>
+      <h4>💡 Detailed Feedback</h4>
+      <p style={{ lineHeight: '1.6' }}>{analysisResult.feedback}</p>
+    </div>
 
-                {analysisResult.report && (
-                  <>
-                    <h4> AI Summary</h4>
-                    <p>{analysisResult.report}</p>
-                  </>
-                )}
-
-                <h4>💡 Detailed Feedback</h4>
-                <p>{analysisResult.feedback}</p>
-
-              </div>
-            )}
+  </div>
+)}
 
 
             </>
