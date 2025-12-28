@@ -1,0 +1,1249 @@
+[
+  {
+    "id": "1",
+    "title": "Two Sum",
+    "metadata": {
+      "difficulty": "Easy",
+      "topics": [
+        "Array",
+        "Hash Table"
+      ],
+      "companies": [
+        "Google",
+        "Amazon",
+        "Microsoft",
+        "Apple"
+      ],
+      "frequency_rating": 5,
+      "leetcode_id": 1,
+      "verified": true
+    },
+    "search_text": "Find two indices such that the numbers at those indices add up to a given target.",
+    "judge_context": {
+      "optimal_solution_code": "class Solution {\n  twoSum(nums, target) {\n    const map = new Map();\n    for (let i = 0; i < nums.length; i++) {\n      const need = target - nums[i];\n      if (map.has(need)) return [map.get(need), i];\n      map.set(nums[i], i);\n    }\n    return [];\n  }\n}",
+      "time_complexity": "O(n)",
+      "space_complexity": "O(n)",
+      "edge_cases": [
+        "Array with negative numbers",
+        "Duplicate values",
+        "Target formed by first and last element"
+      ],
+      "key_insights": [
+        "Hash map enables constant-time lookup",
+        "Single-pass solution is sufficient",
+        "Store seen values before checking future ones"
+      ]
+    },
+    "display_markdown": "### Two Sum\n\nGiven an array of integers `nums` and an integer `target`, return indices of the two numbers such that they add up to `target`.\n\nEach input has exactly one solution, and the same element cannot be used twice.\n\n**Example:**\n```\nInput: nums = [2,7,11,15], target = 9\nOutput: [0,1]\n```\n\n**Constraints:**\n- 2 <= nums.length <= 10^4\n- -10^9 <= nums[i] <= 10^9"
+  },
+  {
+    "id": "2",
+    "title": "Add Two Numbers",
+    "metadata": {
+      "difficulty": "Medium",
+      "topics": [
+        "Linked List",
+        "Math"
+      ],
+      "companies": [
+        "Google",
+        "Microsoft"
+      ],
+      "frequency_rating": 4,
+      "leetcode_id": 2,
+      "verified": true
+    },
+    "search_text": "Add two numbers represented as reversed linked lists and return the sum as a linked list.",
+    "judge_context": {
+      "optimal_solution_code": "class Solution {\n  addTwoNumbers(l1, l2) {\n    let dummy = new ListNode(0);\n    let curr = dummy, carry = 0;\n    while (l1 || l2 || carry) {\n      const sum = (l1?.val || 0) + (l2?.val || 0) + carry;\n      carry = Math.floor(sum / 10);\n      curr.next = new ListNode(sum % 10);\n      curr = curr.next;\n      l1 = l1?.next;\n      l2 = l2?.next;\n    }\n    return dummy.next;\n  }\n}",
+      "time_complexity": "O(n)",
+      "space_complexity": "O(n)",
+      "edge_cases": [
+        "Different length lists",
+        "Final carry remains",
+        "One list is null"
+      ],
+      "key_insights": [
+        "Simulates elementary addition",
+        "Carry propagation is key",
+        "Dummy head simplifies list construction"
+      ]
+    },
+    "display_markdown": "### Add Two Numbers\n\nTwo non-empty linked lists represent two non-negative integers stored in reverse order. Each node contains a single digit.\n\nAdd the two numbers and return the sum as a linked list.\n\n**Example:**\n```\nInput: l1 = [2,4,3], l2 = [5,6,4]\nOutput: [7,0,8]\nExplanation: 342 + 465 = 807\n```\n\n**Constraints:**\n- 1 <= list length <= 100\n- 0 <= Node.val <= 9\n- No leading zeros except for the number 0 itself"
+  },
+  {
+    "id": "3",
+    "title": "Longest Substring Without Repeating Characters",
+    "metadata": {
+      "difficulty": "Medium",
+      "topics": [
+        "String",
+        "Sliding Window",
+        "Hash Table"
+      ],
+      "companies": [
+        "Google",
+        "Amazon",
+        "Microsoft",
+        "Oracle"
+      ],
+      "frequency_rating": 5,
+      "leetcode_id": 3,
+      "verified": true
+    },
+    "search_text": "Find the length of the longest substring without repeating characters using a sliding window.",
+    "judge_context": {
+      "optimal_solution_code": "class Solution {\n  lengthOfLongestSubstring(s) {\n    const map = new Map();\n    let left = 0, ans = 0;\n    for (let right = 0; right < s.length; right++) {\n      if (map.has(s[right])) {\n        left = Math.max(left, map.get(s[right]) + 1);\n      }\n      map.set(s[right], right);\n      ans = Math.max(ans, right - left + 1);\n    }\n    return ans;\n  }\n}",
+      "time_complexity": "O(n)",
+      "space_complexity": "O(min(n, charset))",
+      "edge_cases": [
+        "Empty string",
+        "All characters same",
+        "All unique characters"
+      ],
+      "key_insights": [
+        "Sliding window ensures linear time",
+        "Left pointer never moves backward",
+        "Map stores last seen positions"
+      ]
+    },
+    "display_markdown": "### Longest Substring Without Repeating Characters\n\nGiven a string `s`, find the length of the longest substring without repeating characters.\n\n**Example:**\n```\nInput: \"abcabcbb\"\nOutput: 3\n```\n\n**Constraints:**\n- 0 <= s.length <= 5 * 10^4"
+  },
+  {
+    "id": "9",
+    "title": "Palindrome Number",
+    "metadata": {
+      "difficulty": "Easy",
+      "topics": [
+        "Math"
+      ],
+      "companies": [
+        "Google"
+      ],
+      "frequency_rating": 3,
+      "leetcode_id": 9,
+      "verified": true
+    },
+    "search_text": "Determine whether an integer reads the same backward as forward without converting to string.",
+    "judge_context": {
+      "optimal_solution_code": "class Solution {\n  isPalindrome(x) {\n    if (x < 0 || (x % 10 === 0 && x !== 0)) return false;\n    let reversed = 0;\n    while (x > reversed) {\n      reversed = reversed * 10 + (x % 10);\n      x = Math.floor(x / 10);\n    }\n    return x === reversed || x === Math.floor(reversed / 10);\n  }\n}",
+      "time_complexity": "O(log10 n)",
+      "space_complexity": "O(1)",
+      "edge_cases": [
+        "Negative numbers",
+        "Numbers ending with zero",
+        "Single digit numbers"
+      ],
+      "key_insights": [
+        "Reverse only half the number",
+        "Avoid string conversion",
+        "Early rejection for negatives"
+      ]
+    },
+    "display_markdown": "### Palindrome Number\n\nGiven an integer `x`, return true if `x` is a palindrome.\n\n**Example:**\n```\nInput: x = 121\nOutput: true\nExplanation: 121 reads the same from left to right and right to left.\n\nInput: x = -121\nOutput: false\nExplanation: From left to right, it reads -121. From right to left, it becomes 121-.\n```\n\n**Constraints:**\n- -2^31 <= x <= 2^31 - 1"
+  },
+  {
+    "id": "4",
+    "title": "Median of Two Sorted Arrays",
+    "metadata": {
+      "difficulty": "Hard",
+      "topics": [
+        "Array",
+        "Binary Search"
+      ],
+      "companies": [
+        "Google",
+        "Microsoft"
+      ],
+      "frequency_rating": 5,
+      "leetcode_id": 4,
+      "verified": true
+    },
+    "search_text": "Find the median of two sorted arrays in logarithmic time.",
+    "judge_context": {
+      "optimal_solution_code": "class Solution {\n  findMedianSortedArrays(nums1, nums2) {\n    if (nums1.length > nums2.length) return this.findMedianSortedArrays(nums2, nums1);\n    let m = nums1.length, n = nums2.length;\n    let left = 0, right = m;\n    while (left <= right) {\n      let i = Math.floor((left + right) / 2);\n      let j = Math.floor((m + n + 1) / 2) - i;\n      let maxLeftA = i === 0 ? -Infinity : nums1[i - 1];\n      let minRightA = i === m ? Infinity : nums1[i];\n      let maxLeftB = j === 0 ? -Infinity : nums2[j - 1];\n      let minRightB = j === n ? Infinity : nums2[j];\n      if (maxLeftA <= minRightB && maxLeftB <= minRightA) {\n        if ((m + n) % 2 === 0)\n          return (Math.max(maxLeftA, maxLeftB) + Math.min(minRightA, minRightB)) / 2;\n        return Math.max(maxLeftA, maxLeftB);\n      } else if (maxLeftA > minRightB) right = i - 1;\n      else left = i + 1;\n    }\n  }\n}",
+      "time_complexity": "O(log(min(m,n)))",
+      "space_complexity": "O(1)",
+      "edge_cases": [
+        "One array empty",
+        "Different sized arrays",
+        "Even and odd total length"
+      ],
+      "key_insights": [
+        "Binary search on smaller array",
+        "Partition arrays into left/right halves",
+        "Median depends on boundary elements"
+      ]
+    },
+    "display_markdown": "### Median of Two Sorted Arrays\n\nGiven two sorted arrays nums1 and nums2, return the median of the two sorted arrays.\n\nThe overall run time complexity should be O(log(min(m,n))).\n\n**Example 1:**\n```\nInput: nums1 = [1,3], nums2 = [2]\nOutput: 2.0\nExplanation: Merged array = [1,2,3], median is 2.\n```\n\n**Example 2:**\n```\nInput: nums1 = [1,2], nums2 = [3,4]\nOutput: 2.5\nExplanation: Merged array = [1,2,3,4], median is (2 + 3) / 2 = 2.5\n```\n\n**Constraints:**\n- 0 <= nums1.length <= 1000\n- 0 <= nums2.length <= 1000\n- 1 <= nums1.length + nums2.length <= 2000\n- -10^6 <= nums1[i], nums2[i] <= 10^6"
+  },
+  {
+    "id": "42",
+    "title": "Trapping Rain Water",
+    "metadata": {
+      "difficulty": "Hard",
+      "topics": [
+        "Array",
+        "Two Pointers",
+        "Stack"
+      ],
+      "companies": [
+        "Google",
+        "Microsoft"
+      ],
+      "frequency_rating": 5,
+      "leetcode_id": 42,
+      "verified": true
+    },
+    "search_text": "Compute how much water can be trapped between bars after raining.",
+    "judge_context": {
+      "optimal_solution_code": "class Solution {\n  trap(height) {\n    let left = 0, right = height.length - 1;\n    let leftMax = 0, rightMax = 0, ans = 0;\n    while (left < right) {\n      if (height[left] < height[right]) {\n        leftMax = Math.max(leftMax, height[left]);\n        ans += leftMax - height[left++];\n      } else {\n        rightMax = Math.max(rightMax, height[right]);\n        ans += rightMax - height[right--];\n      }\n    }\n    return ans;\n  }\n}",
+      "time_complexity": "O(n)",
+      "space_complexity": "O(1)",
+      "edge_cases": [
+        "Empty array",
+        "Monotonic heights",
+        "Single bar"
+      ],
+      "key_insights": [
+        "Two-pointer approach avoids extra space",
+        "Water trapped depends on min(leftMax, rightMax)",
+        "Greedy movement of smaller side"
+      ]
+    },
+    "display_markdown": "### Trapping Rain Water\n\nGiven n non-negative integers representing an elevation map where the width of each bar is 1, compute how much water it can trap after raining.\n\n**Example:**\n```\nInput: height = [0,1,0,2,1,0,1,3,2,1,2,1]\nOutput: 6\nExplanation: The elevation map (black section) is represented by array [0,1,0,2,1,0,1,3,2,1,2,1]. In this case, 6 units of rain water (blue section) are being trapped.\n```\n\n**Constraints:**\n- 0 <= height.length <= 2 * 10^4\n- 0 <= height[i] <= 10^5"
+  },
+  {
+    "id": "20",
+    "title": "Valid Parentheses",
+    "metadata": {
+      "difficulty": "Easy",
+      "topics": [
+        "Stack",
+        "String"
+      ],
+      "companies": [
+        "Google",
+        "Microsoft"
+      ],
+      "frequency_rating": 4,
+      "leetcode_id": 20,
+      "verified": true
+    },
+    "search_text": "Check whether a string of brackets is valid using stack-based matching.",
+    "judge_context": {
+      "optimal_solution_code": "class Solution {\n  isValid(s) {\n    const stack = [];\n    const map = { ')': '(', ']': '[', '}': '{' };\n    for (const ch of s) {\n      if (map[ch]) {\n        if (stack.pop() !== map[ch]) return false;\n      } else stack.push(ch);\n    }\n    return stack.length === 0;\n  }\n}",
+      "time_complexity": "O(n)",
+      "space_complexity": "O(n)",
+      "edge_cases": [
+        "Empty string",
+        "Odd length string",
+        "Mismatched brackets"
+      ],
+      "key_insights": [
+        "Stack naturally models nesting",
+        "Closing bracket validates top",
+        "Final stack must be empty"
+      ]
+    },
+    "display_markdown": "### Valid Parentheses\n\nGiven a string s containing just the characters '(', ')', '{', '}', '[' and ']', determine if the input string is valid.\n\nAn input string is valid if:\n- Open brackets must be closed by the same type of brackets\n- Open brackets must be closed in the correct order\n- Every close bracket has a corresponding open bracket of the same type\n\n**Example:**\n```\nInput: s = \"()\"\nOutput: true\n\nInput: s = \"()[]{}\"\nOutput: true\n\nInput: s = \"(]\"\nOutput: false\n```\n\n**Constraints:**\n- 1 <= s.length <= 10^4\n- s consists of parentheses only '()[]'"
+  },
+  {
+    "id": "11",
+    "title": "Container With Most Water",
+    "metadata": {
+      "difficulty": "Medium",
+      "topics": [
+        "Array",
+        "Two Pointers"
+      ],
+      "companies": [
+        "Google"
+      ],
+      "frequency_rating": 3,
+      "leetcode_id": 11,
+      "verified": true
+    },
+    "search_text": "Find two vertical lines that form a container holding the maximum water.",
+    "judge_context": {
+      "optimal_solution_code": "class Solution {\n  maxArea(height) {\n    let l = 0, r = height.length - 1, ans = 0;\n    while (l < r) {\n      ans = Math.max(ans, Math.min(height[l], height[r]) * (r - l));\n      if (height[l] < height[r]) l++;\n      else r--;\n    }\n    return ans;\n  }\n}",
+      "time_complexity": "O(n)",
+      "space_complexity": "O(1)",
+      "edge_cases": [
+        "Two elements only",
+        "All heights equal",
+        "Strictly increasing heights"
+      ],
+      "key_insights": [
+        "Move pointer with smaller height",
+        "Width decreases every step",
+        "Greedy two-pointer strategy"
+      ]
+    },
+    "display_markdown": "### Container With Most Water\n\nYou are given an integer array height of length n. There are n vertical lines drawn such that the two endpoints of the ith line are (i, 0) and (i, height[i]).\n\nFind two lines that together with the x-axis form a container, such that the container contains the most water.\n\nReturn the maximum amount of water a container can store.\n\n**Example:**\n```\nInput: height = [1,8,6,2,5,4,8,3,7]\nOutput: 49\nExplanation: The above vertical lines are represented by array [1,8,6,2,5,4,8,3,7]. The max area of water is 49.\n```\n\n**Constraints:**\n- 2 <= height.length <= 10^5\n- 0 <= height[i] <= 10^4"
+  },
+  {
+    "id": "15",
+    "title": "3Sum",
+    "metadata": {
+      "difficulty": "Medium",
+      "topics": [
+        "Array",
+        "Two Pointers",
+        "Sorting"
+      ],
+      "companies": [
+        "Google",
+        "Amazon",
+        "Microsoft"
+      ],
+      "frequency_rating": 5,
+      "leetcode_id": 15,
+      "verified": true
+    },
+    "search_text": "Find all unique triplets in the array which sum to zero.",
+    "judge_context": {
+      "optimal_solution_code": "class Solution {\n  threeSum(nums) {\n    nums.sort((a,b) => a-b);\n    const res = [];\n    for (let i = 0; i < nums.length; i++) {\n      if (i > 0 && nums[i] === nums[i-1]) continue;\n      let l = i + 1, r = nums.length - 1;\n      while (l < r) {\n        const sum = nums[i] + nums[l] + nums[r];\n        if (sum === 0) {\n          res.push([nums[i], nums[l], nums[r]]);\n          while (l < r && nums[l] === nums[l+1]) l++;\n          while (l < r && nums[r] === nums[r-1]) r--;\n          l++; r--;\n        } else if (sum < 0) l++;\n        else r--;\n      }\n    }\n    return res;\n  }\n}",
+      "time_complexity": "O(n^2)",
+      "space_complexity": "O(1)",
+      "edge_cases": [
+        "All zeros",
+        "No valid triplets",
+        "Duplicates in input"
+      ],
+      "key_insights": [
+        "Sorting enables two-pointer technique",
+        "Skip duplicates carefully",
+        "Fix one number and reduce to 2Sum"
+      ]
+    },
+    "display_markdown": "### 3Sum\\n\\nGiven an integer array nums, return all the triplets [nums[i], nums[j], nums[k]] such that i ≠ j ≠ k and nums[i] + nums[j] + nums[k] == 0.\\n\\nNotice that the solution set must not contain duplicate triplets.\\n\\n**Example:**\\n```\\nInput: nums = [-1,0,1,2,-1,-4]\\nOutput: [[-1,-1,2],[-1,0,1]]\\nExplanation: \\nnums[0] + nums[1] + nums[2] = (-1) + 0 + 1 = 0\\nnums[1] + nums[2] + nums[4] = 0 + 1 + (-1) = 0\\nnums[0] + nums[3] + nums[4] = (-1) + 2 + (-1) = 0\\nThe distinct triplets are [-1,0,1] and [-1,-1,2].\\n```\\n\\n**Constraints:**\\n- 3 <= nums.length <= 3000\\n- -10^5 <= nums[i] <= 10^5"
+  },
+  {
+    "id": "14",
+    "title": "Longest Common Prefix",
+    "metadata": {
+      "difficulty": "Easy",
+      "topics": [
+        "String"
+      ],
+      "companies": [
+        "Google",
+        "Amazon"
+      ],
+      "frequency_rating": 3,
+      "leetcode_id": 14,
+      "verified": true
+    },
+    "search_text": "Find the longest common prefix string among an array of strings.",
+    "judge_context": {
+      "optimal_solution_code": "class Solution {\n  longestCommonPrefix(strs) {\n    if (!strs.length) return \"\";\n    let prefix = strs[0];\n    for (let i = 1; i < strs.length; i++) {\n      while (!strs[i].startsWith(prefix)) {\n        prefix = prefix.slice(0, -1);\n        if (!prefix) return \"\";\n      }\n    }\n    return prefix;\n  }\n}",
+      "time_complexity": "O(n * m)",
+      "space_complexity": "O(1)",
+      "edge_cases": [
+        "Empty array",
+        "Single string",
+        "No common prefix"
+      ],
+      "key_insights": [
+        "Shrink prefix until it matches",
+        "Early termination when prefix empty",
+        "Horizontal scanning approach"
+      ]
+    },
+    "display_markdown": "### Longest Common Prefix\\n\\nWrite a function to find the longest common prefix string amongst an array of strings.\\n\\nIf there is no common prefix, return an empty string \\\"\\\".\\n\\n**Example:**\\n```\\nInput: strs = [\\\"flower\\\",\\\"flow\\\",\\\"flight\\\"]\\nOutput: \\\"fl\\\"\\n\\nInput: strs = [\\\"dog\\\",\\\"racecar\\\",\\\"car\\\"]\\nOutput: \\\"\\\"\\nExplanation: There is no common prefix among the input strings.\\n```\\n\\n**Constraints:**\\n- 1 <= strs.length <= 200\\n- 0 <= strs[i].length <= 200\\n- strs[i] consists of only lowercase English letters"
+  },
+  {
+    "id": "26",
+    "title": "Remove Duplicates from Sorted Array",
+    "metadata": {
+      "difficulty": "Easy",
+      "topics": [
+        "Array",
+        "Two Pointers"
+      ],
+      "companies": [
+        "Google",
+        "Amazon"
+      ],
+      "frequency_rating": 3,
+      "leetcode_id": 26,
+      "verified": true
+    },
+    "search_text": "Remove duplicates in-place from sorted array and return new length.",
+    "judge_context": {
+      "optimal_solution_code": "class Solution {\n  removeDuplicates(nums) {\n    if (nums.length === 0) return 0;\n    let k = 1;\n    for (let i = 1; i < nums.length; i++) {\n      if (nums[i] !== nums[i-1]) {\n        nums[k++] = nums[i];\n      }\n    }\n    return k;\n  }\n}",
+      "time_complexity": "O(n)",
+      "space_complexity": "O(1)",
+      "edge_cases": [
+        "Empty array",
+        "All elements same",
+        "No duplicates"
+      ],
+      "key_insights": [
+        "Sorted property enables linear scan",
+        "Use slow pointer for placement",
+        "In-place modification required"
+      ]
+    },
+    "display_markdown": "### Remove Duplicates from Sorted Array\n\nGiven an integer array nums sorted in non-decreasing order, remove the duplicates in-place such that each unique element appears only once. The relative order of the elements should be kept the same. Then return the number of unique elements in nums.\n\nConsider the number of unique elements of nums to be k, to get accepted, you need to do the following things:\n- Change the array nums such that the first k elements of nums contain the unique elements in the order they were present in nums initially\n- The remaining elements of nums are not important as well as the size of nums\n- Return k\n\n**Example:**\n```\nInput: nums = [1,1,2]\nOutput: 2, nums = [1,2,_]\nExplanation: Your function should return k = 2, with the first two elements of nums being 1 and 2 respectively.\n\nInput: nums = [0,0,1,1,1,2,2,3,3,4]\nOutput: 5, nums = [0,1,2,3,4,_,_,_,_,_]\n```\n\n**Constraints:**\n- 1 <= nums.length <= 3 * 10^4\n- -100 <= nums[i] <= 100\n- nums is sorted in non-decreasing order"
+  },
+  {
+    "id": "121",
+    "title": "Best Time to Buy and Sell Stock",
+    "metadata": {
+      "difficulty": "Easy",
+      "topics": [
+        "Array",
+        "Dynamic Programming"
+      ],
+      "companies": [
+        "Amazon",
+        "Microsoft"
+      ],
+      "frequency_rating": 4,
+      "leetcode_id": 121,
+      "verified": true
+    },
+    "search_text": "Find the maximum profit from one buy and one sell operation on stock prices.",
+    "judge_context": {
+      "optimal_solution_code": "class Solution {\n  maxProfit(prices) {\n    let minPrice = Infinity, maxProfit = 0;\n    for (const price of prices) {\n      minPrice = Math.min(minPrice, price);\n      maxProfit = Math.max(maxProfit, price - minPrice);\n    }\n    return maxProfit;\n  }\n}",
+      "time_complexity": "O(n)",
+      "space_complexity": "O(1)",
+      "edge_cases": [
+        "Prices always decreasing",
+        "Single day price",
+        "No profitable transaction"
+      ],
+      "key_insights": [
+        "Track minimum price so far",
+        "Profit is local difference",
+        "Single pass sufficient"
+      ]
+    },
+    "display_markdown": "### Best Time to Buy and Sell Stock\n\nYou are given an array prices where prices[i] is the price of a stock on the ith day.\n\nYou want to maximize your profit by choosing a single day to buy one stock and choosing a different day in the future to sell that stock.\n\nReturn the maximum profit you can achieve from this transaction. If you cannot achieve any profit, return 0.\n\n**Example:**\n```\nInput: prices = [7,1,5,3,6,4]\nOutput: 5\nExplanation: Buy on day 2 (price = 1) and sell on day 5 (price = 6), profit = 6-1 = 5.\n\nInput: prices = [7,6,4,3,1]\nOutput: 0\nExplanation: No transactions are done and the max profit = 0.\n```\n\n**Constraints:**\n- 1 <= prices.length <= 10^5\n-  0 <= prices[i] <= 10^4"
+  },
+  {
+    "id": "560",
+    "title": "Subarray Sum Equals K",
+    "metadata": {
+      "difficulty": "Medium",
+      "topics": [
+        "Array",
+        "Hash Table",
+        "Prefix Sum"
+      ],
+      "companies": [
+        "Google",
+        "Amazon"
+      ],
+      "frequency_rating": 4,
+      "leetcode_id": 560,
+      "verified": true
+    },
+    "search_text": "Count number of continuous subarrays whose sum equals k.",
+    "judge_context": {
+      "optimal_solution_code": "class Solution {\n  subarraySum(nums, k) {\n    const map = new Map([[0, 1]]);\n    let sum = 0, count = 0;\n    for (const num of nums) {\n      sum += num;\n      if (map.has(sum - k)) count += map.get(sum - k);\n      map.set(sum, (map.get(sum) || 0) + 1);\n    }\n    return count;\n  }\n}",
+      "time_complexity": "O(n)",
+      "space_complexity": "O(n)",
+      "edge_cases": [
+        "Negative numbers",
+        "k = 0",
+        "Multiple overlapping subarrays"
+      ],
+      "key_insights": [
+        "Prefix sums convert problem to lookup",
+        "Hash map stores frequency of sums",
+        "Handles negatives unlike sliding window"
+      ]
+    },
+    "display_markdown": "### Subarray Sum Equals K\n\nGiven an array of integers nums and an integer k, return the total number of continuous subarrays whose sum equals to k.\n\n**Example:**\n```\nInput: nums = [1,1,1], k = 2\nOutput: 2\nExplanation: Subarrays [1,1] and [1,1] both sum to 2.\n\nInput: nums = [1,2,3], k = 3\nOutput: 2\n```\n\n**Constraints:**\n- 1 <= nums.length <= 2 * 10^4\n- -1000 <= nums[i] <= 1000\n- -10^7 <= k <= 10^7"
+  },
+  {
+    "id": "94",
+    "title": "Binary Tree Inorder Traversal",
+    "metadata": {
+      "difficulty": "Easy",
+      "topics": [
+        "Tree",
+        "DFS",
+        "Stack"
+      ],
+      "companies": [
+        "Google",
+        "Amazon"
+      ],
+      "frequency_rating": 3,
+      "leetcode_id": 94,
+      "verified": true
+    },
+    "search_text": "Return the inorder traversal of a binary tree's nodes' values.",
+    "judge_context": {
+      "optimal_solution_code": "class Solution {\n  inorderTraversal(root) {\n    const res = [];\n    const stack = [];\n    let curr = root;\n    while (curr || stack.length) {\n      while (curr) {\n        stack.push(curr);\n        curr = curr.left;\n      }\n      curr = stack.pop();\n      res.push(curr.val);\n      curr = curr.right;\n    }\n    return res;\n  }\n}",
+      "time_complexity": "O(n)",
+      "space_complexity": "O(n)",
+      "edge_cases": [
+        "Empty tree",
+        "Single node",
+        "Skewed tree"
+      ],
+      "key_insights": [
+        "Inorder = left → root → right",
+        "Stack simulates recursion",
+        "Iterative avoids call stack overflow"
+      ]
+    },
+    "display_markdown": "### Binary Tree Inorder Traversal\n\nGiven the root of a binary tree, return the inorder traversal of its nodes' values.\n\n**Example:**\n```\nInput: root = [1,null,2,3]\nOutput: [1,3,2]\n\nInput: root = []\nOutput: []\n```\n\n**Constraints:**\n- 0 <= Number of nodes <= 100\n- -100 <= Node.val <= 100"
+  },
+  {
+    "id": "98",
+    "title": "Validate Binary Search Tree",
+    "metadata": {
+      "difficulty": "Medium",
+      "topics": [
+        "Tree",
+        "DFS"
+      ],
+      "companies": [
+        "Google",
+        "Amazon",
+        "Microsoft"
+      ],
+      "frequency_rating": 4,
+      "leetcode_id": 98,
+      "verified": true
+    },
+    "search_text": "Check whether a binary tree satisfies binary search tree ordering rules.",
+    "judge_context": {
+      "optimal_solution_code": "class Solution {\n  isValidBST(root, min = -Infinity, max = Infinity) {\n    if (!root) return true;\n    if (root.val <= min || root.val >= max) return false;\n    return this.isValidBST(root.left, min, root.val) &&\n           this.isValidBST(root.right, root.val, max);\n  }\n}",
+      "time_complexity": "O(n)",
+      "space_complexity": "O(n)",
+      "edge_cases": [
+        "Single node tree",
+        "Duplicate values in tree",
+        "Violation deep in subtree"
+      ],
+      "key_insights": [
+        "Each node must lie within a valid value range",
+        "Local parent-child comparison is insufficient",
+        "DFS with bounds guarantees correctness"
+      ]
+    },
+    "display_markdown": "### Validate Binary Search Tree\n\nGiven the root of a binary tree, determine if it is a valid binary search tree (BST).\n\nA valid BST is defined as follows:\n- The left subtree of a node contains only nodes with keys less than the node's key\n- The right subtree of a node contains only nodes with keys greater than the node's key\n- Both the left and right subtrees must also be binary search trees\n\n**Example:**\n```\nInput: root = [2,1,3]\nOutput: true\n\nInput: root = [5,1,4,null,null,3,6]\nOutput: false\nExplanation: The root node's value is 5 but its right child's value is 4.\n```\n\n**Constraints:**\n- 1 <= Number of nodes <= 10^4\n- -2^31 <= Node.val <= 2^31 - 1"
+  },
+  {
+    "id": "200",
+    "title": "Number of Islands",
+    "metadata": {
+      "difficulty": "Medium",
+      "topics": [
+        "DFS",
+        "BFS",
+        "Matrix"
+      ],
+      "companies": [
+        "Google",
+        "Amazon",
+        "Meta"
+      ],
+      "frequency_rating": 5,
+      "leetcode_id": 200,
+      "verified": true
+    },
+    "search_text": "Count the number of connected components of land in a 2D grid.",
+    "judge_context": {
+      "optimal_solution_code": "class Solution {\n  numIslands(grid) {\n    if (!grid.length) return 0;\n    const dfs = (r, c) => {\n      if (r < 0 || c < 0 || r >= grid.length || c >= grid[0].length || grid[r][c] === '0') return;\n      grid[r][c] = '0';\n      dfs(r + 1, c);\n      dfs(r - 1, c);\n      dfs(r, c + 1);\n      dfs(r, c - 1);\n    };\n    let count = 0;\n    for (let i = 0; i < grid.length; i++) {\n      for (let j = 0; j < grid[0].length; j++) {\n        if (grid[i][j] === '1') {\n          dfs(i, j);\n          count++;\n        }\n      }\n    }\n    return count;\n  }\n}",
+      "time_complexity": "O(m * n)",
+      "space_complexity": "O(m * n)",
+      "edge_cases": [
+        "Empty grid",
+        "All water",
+        "Single large island"
+      ],
+      "key_insights": [
+        "Each DFS marks one entire island",
+        "Visited land can be marked by mutating grid",
+        "Equivalent to counting connected components"
+      ]
+    },
+    "display_markdown": "### Number of Islands\n\nGiven an m x n 2D binary grid which represents a map of '1's (land) and '0's (water), return the number of islands.\n\nAn island is surrounded by water and is formed by connecting adjacent lands horizontally or vertically. You may assume all four edges of the grid are all surrounded by water.\n\n**Example:**\n```\nInput: grid = [\n  [\"1\",\"1\",\"1\",\"1\",\"0\"],\n  [\"1\",\"1\",\"0\",\"1\",\"0\"],\n  [\"1\",\"1\",\"0\",\"0\",\"0\"],\n  [\"0\",\"0\",\"0\",\"0\",\"0\"]\n]\nOutput: 1\n\nInput: grid = [\n  [\"1\",\"1\",\"0\",\"0\",\"0\"],\n  [\"1\",\"1\",\"0\",\"0\",\"0\"],\n  [\"0\",\"0\",\"1\",\"0\",\"0\"],\n  [\"0\",\"0\",\"0\",\"1\",\"1\"]\n]\nOutput: 3\n```\n\n**Constraints:**\n- m == grid.length\n- n == grid[i].length\n- 1 <= m, n <= 300\n- grid[i][j] is '0' or '1'"
+  },
+  {
+    "id": "207",
+    "title": "Course Schedule",
+    "metadata": {
+      "difficulty": "Medium",
+      "topics": [
+        "Graph",
+        "DFS",
+        "Topological Sort"
+      ],
+      "companies": [
+        "Google",
+        "Amazon",
+        "Meta"
+      ],
+      "frequency_rating": 4,
+      "leetcode_id": 207,
+      "verified": true
+    },
+    "search_text": "Determine whether all courses can be completed given prerequisite constraints.",
+    "judge_context": {
+      "optimal_solution_code": "class Solution {\n  canFinish(numCourses, prerequisites) {\n    const graph = Array.from({ length: numCourses }, () => []);\n    const state = new Array(numCourses).fill(0);\n    for (const [a, b] of prerequisites) graph[b].push(a);\n    const dfs = (v) => {\n      if (state[v] === 1) return false;\n      if (state[v] === 2) return true;\n      state[v] = 1;\n      for (const nei of graph[v]) {\n        if (!dfs(nei)) return false;\n      }\n      state[v] = 2;\n      return true;\n    };\n    for (let i = 0; i < numCourses; i++) {\n      if (!dfs(i)) return false;\n    }\n    return true;\n  }\n}",
+      "time_complexity": "O(V + E)",
+      "space_complexity": "O(V + E)",
+      "edge_cases": [
+        "No prerequisites",
+        "Cycle exists",
+        "Disconnected components"
+      ],
+      "key_insights": [
+        "Cycle detection determines feasibility",
+        "Three-state DFS prevents reprocessing",
+        "Equivalent to checking topological order existence"
+      ]
+    },
+    "display_markdown": "### Course Schedule\n\nThere are a total of numCourses courses you have to take, labeled from 0 to numCourses - 1. You are given an array prerequisites where prerequisites[i] = [ai, bi] indicates that you must take course bi first if you want to take course ai.\n\nReturn true if you can finish all courses. Otherwise, return false.\n\n**Example:**\n```\nInput: numCourses = 2, prerequisites = [[1,0]]\nOutput: true\nExplanation: There are a total of 2 courses. To take course 1 you should have finished course 0. So it is possible.\n\nInput: numCourses = 2, prerequisites = [[1,0],[0,1]]\nOutput: false\nExplanation: There are 2 courses. To take course 1 you need course 0, and to take course 0 you need course 1. So it is impossible.\n```\n\n**Constraints:**\n- 1 <= numCourses <= 2000\n- 0 <= prerequisites.length <= 5000\n- prerequisites[i].length == 2\n- 0 <= ai, bi < numCourses\n- All the pairs prerequisites[i] are unique"
+  },
+  {
+    "id": "146",
+    "title": "LRU Cache",
+    "metadata": {
+      "difficulty": "Medium",
+      "topics": [
+        "Design",
+        "Hash Table",
+        "Doubly Linked List"
+      ],
+      "companies": [
+        "Google",
+        "Amazon",
+        "Microsoft"
+      ],
+      "frequency_rating": 5,
+      "leetcode_id": 146,
+      "verified": true
+    },
+    "search_text": "Design a cache that evicts the least recently used item in O(1) time.",
+    "judge_context": {
+      "optimal_solution_code": "class LRUCache {\n  constructor(capacity) {\n    this.cap = capacity;\n    this.map = new Map();\n  }\n  get(key) {\n    if (!this.map.has(key)) return -1;\n    const val = this.map.get(key);\n    this.map.delete(key);\n    this.map.set(key, val);\n    return val;\n  }\n  put(key, value) {\n    if (this.map.has(key)) this.map.delete(key);\n    this.map.set(key, value);\n    if (this.map.size > this.cap) {\n      this.map.delete(this.map.keys().next().value);\n    }\n  }\n}",
+      "time_complexity": "O(1)",
+      "space_complexity": "O(capacity)",
+      "edge_cases": [
+        "Capacity equals one",
+        "Updating existing key",
+        "Repeated access to same key"
+      ],
+      "key_insights": [
+        "Map preserves insertion order",
+        "Most recently used item moved to end",
+        "Eviction removes first key in map"
+      ]
+    },
+    "display_markdown": "### LRU Cache\n\nDesign a data structure that follows the constraints of a Least Recently Used (LRU) cache.\n\nImplement the LRUCache class:\n- LRUCache(int capacity) Initialize the LRU cache with positive size capacity.\n- int get(int key) Return the value of the key if the key exists, otherwise return -1.\n- void put(int key, int value) Update the value of the key if the key exists. Otherwise, add the key-value pair to the cache. If the number of keys exceeds the capacity from this operation, evict the least recently used key.\n\n**Example:**\n```\nInput:\n[\"LRUCache\", \"put\", \"put\", \"get\", \"put\", \"get\", \"put\", \"get\", \"get\", \"get\"]\n[[2], [1, 1], [2, 2], [1], [3, 3], [2], [4, 4], [1], [3], [4]]\nOutput:\n[null, null, null, 1, null, -1, null, -1, 3, 4]\n```\n\n**Constraints:**\n- 1 <= capacity <= 3000\n- 0 <= key <= 10^4\n- 0 <= value <= 10^5\n- At most 2 * 10^5 calls will be made to get and put"
+  },
+  {
+    "id": "226",
+    "title": "Invert Binary Tree",
+    "metadata": {
+      "difficulty": "Easy",
+      "topics": [
+        "Tree",
+        "DFS",
+        "BFS"
+      ],
+      "companies": [
+        "Google",
+        "Amazon"
+      ],
+      "frequency_rating": 3,
+      "leetcode_id": 226,
+      "verified": true
+    },
+    "search_text": "Invert a binary tree by swapping left and right children at every node.",
+    "judge_context": {
+      "optimal_solution_code": "class Solution {\n  invertTree(root) {\n    if (!root) return null;\n    [root.left, root.right] = [root.right, root.left];\n    this.invertTree(root.left);\n    this.invertTree(root.right);\n    return root;\n  }\n}",
+      "time_complexity": "O(n)",
+      "space_complexity": "O(n)",
+      "edge_cases": [
+        "Empty tree",
+        "Single node tree",
+        "Skewed tree"
+      ],
+      "key_insights": [
+        "Swap children recursively",
+        "DFS or BFS both work",
+        "Every node visited exactly once"
+      ]
+    },
+    "display_markdown": "### Invert Binary Tree\n\nGiven the root of a binary tree, invert the tree, and return its root.\n\n**Example:**\n```\nInput: root = [4,2,7,1,3,6,9]\nOutput: [4,7,2,9,6,3,1]\n\nInput: root = [2,1,3]\nOutput: [2,3,1]\n```\n\n**Constraints:**\n- 0 <= Number of nodes <= 100\n- -100 <= Node.val <= 100"
+  },
+  {
+    "id": "21",
+    "title": "Merge Two Sorted Lists",
+    "metadata": {
+      "difficulty": "Easy",
+      "topics": [
+        "Linked List"
+      ],
+      "companies": [
+        "Google",
+        "Amazon",
+        "Microsoft"
+      ],
+      "frequency_rating": 4,
+      "leetcode_id": 21,
+      "verified": true
+    },
+    "search_text": "Merge two sorted linked lists into one sorted linked list.",
+    "judge_context": {
+      "optimal_solution_code": "class Solution {\n  mergeTwoLists(l1, l2) {\n    const dummy = new ListNode(0);\n    let curr = dummy;\n    while (l1 && l2) {\n      if (l1.val <= l2.val) {\n        curr.next = l1;\n        l1 = l1.next;\n      } else {\n        curr.next = l2;\n        l2 = l2.next;\n      }\n      curr = curr.next;\n    }\n    curr.next = l1 || l2;\n    return dummy.next;\n  }\n}",
+      "time_complexity": "O(n + m)",
+      "space_complexity": "O(1)",
+      "edge_cases": [
+        "One list is empty",
+        "Both lists empty",
+        "Lists of unequal length"
+      ],
+      "key_insights": [
+        "Two-pointer merge technique",
+        "Dummy head simplifies logic",
+        "In-place merging without extra memory"
+      ]
+    },
+    "display_markdown": "### Merge Two Sorted Lists\n\nYou are given the heads of two sorted linked lists list1 and list2.\n\nMerge the two lists into one sorted list. The list should be made by splicing together the nodes of the first two lists.\n\nReturn the head of the merged linked list.\n\n**Example:**\n```\nInput: list1 = [1,2,4], list2 = [1,3,4]\nOutput: [1,1,2,3,4,4]\n\nInput: list1 = [], list2 = []\nOutput: []\n```\n\n**Constraints:**\n- 0 <= list length <= 50\n- -100 <= Node.val <= 100\n- Both list1 and list2 are sorted in non-decreasing order"
+  },
+  {
+    "id": "70",
+    "title": "Climbing Stairs",
+    "metadata": {
+      "difficulty": "Easy",
+      "topics": [
+        "Dynamic Programming"
+      ],
+      "companies": [
+        "Google",
+        "Amazon"
+      ],
+      "frequency_rating": 3,
+      "leetcode_id": 70,
+      "verified": true
+    },
+    "search_text": "Count the number of distinct ways to climb stairs when you can take one or two steps.",
+    "judge_context": {
+      "optimal_solution_code": "class Solution {\n  climbStairs(n) {\n    if (n <= 2) return n;\n    let a = 1, b = 2;\n    for (let i = 3; i <= n; i++) {\n      const c = a + b;\n      a = b;\n      b = c;\n    }\n    return b;\n  }\n}",
+      "time_complexity": "O(n)",
+      "space_complexity": "O(1)",
+      "edge_cases": [
+        "n = 1",
+        "n = 2",
+        "Large n"
+      ],
+      "key_insights": [
+        "Classic Fibonacci-style DP",
+        "Only last two states required",
+        "Iterative solution saves space"
+      ]
+    },
+    "display_markdown": "### Climbing Stairs\n\nYou are climbing a staircase. It takes n steps to reach the top.\n\nEach time you can either climb 1 or 2 steps. In how many distinct ways can you climb to the top?\n\n**Example:**\n```\nInput: n = 2\nOutput: 2\nExplanation: There are two ways to climb to the top: 1+1 or 2.\n\nInput: n = 3\nOutput: 3\nExplanation: There are three ways: 1+1+1, 1+2, or 2+1.\n```\n\n**Constraints:**\n- 1 <= n <= 45"
+  },
+  {
+    "id": "53",
+    "title": "Maximum Subarray",
+    "metadata": {
+      "difficulty": "Medium",
+      "topics": [
+        "Array",
+        "Dynamic Programming"
+      ],
+      "companies": [
+        "Google",
+        "Amazon",
+        "Microsoft"
+      ],
+      "frequency_rating": 5,
+      "leetcode_id": 53,
+      "verified": true
+    },
+    "search_text": "Find the contiguous subarray with the largest sum.",
+    "judge_context": {
+      "optimal_solution_code": "class Solution {\n  maxSubArray(nums) {\n    let curr = nums[0];\n    let best = nums[0];\n    for (let i = 1; i < nums.length; i++) {\n      curr = Math.max(nums[i], curr + nums[i]);\n      best = Math.max(best, curr);\n    }\n    return best;\n  }\n}",
+      "time_complexity": "O(n)",
+      "space_complexity": "O(1)",
+      "edge_cases": [
+        "All negative numbers",
+        "Single element array",
+        "Mixed positive and negative values"
+      ],
+      "key_insights": [
+        "Kadane’s algorithm",
+        "Either extend or restart subarray",
+        "Greedy local decisions yield global optimum"
+      ]
+    },
+    "display_markdown": "### Maximum Subarray\n\nGiven an integer array nums, find the contiguous subarray (containing at least one number) which has the largest sum and return its sum.\n\n**Example:**\n```\nInput: nums = [-2,1,-3,4,-1,2,1,-5,4]\nOutput: 6\nExplanation: The subarray [4,-1,2,1] has the largest sum 6.\n\nInput: nums = [1]\nOutput: 1\n```\n\n**Constraints:**\n- 1 <= nums.length <= 10^5\n- -10^4 <= nums[i] <= 10^4"
+  },
+  {
+    "id": "235",
+    "title": "Lowest Common Ancestor of a Binary Search Tree",
+    "metadata": {
+      "difficulty": "Easy",
+      "topics": [
+        "Tree",
+        "BST"
+      ],
+      "companies": [
+        "Google",
+        "Amazon"
+      ],
+      "frequency_rating": 3,
+      "leetcode_id": 235,
+      "verified": true
+    },
+    "search_text": "Find the lowest common ancestor of two nodes in a binary search tree.",
+    "judge_context": {
+      "optimal_solution_code": "class Solution {\n  lowestCommonAncestor(root, p, q) {\n    while (root) {\n      if (p.val < root.val && q.val < root.val) root = root.left;\n      else if (p.val > root.val && q.val > root.val) root = root.right;\n      else return root;\n    }\n  }\n}",
+      "time_complexity": "O(h)",
+      "space_complexity": "O(1)",
+      "edge_cases": [
+        "One node is ancestor of the other",
+        "Skewed BST",
+        "p equals q"
+      ],
+      "key_insights": [
+        "BST ordering guides traversal",
+        "First split point is LCA",
+        "No need to traverse entire tree"
+      ]
+    },
+    "display_markdown": "### Lowest Common Ancestor of a Binary Search Tree\n\nGiven a binary search tree (BST), find the lowest common ancestor (LCA) node of two given nodes in the BST.\n\nThe lowest common ancestor is defined as the lowest node in T that has both p and q as descendants (where we allow a node to be a descendant of itself).\n\n**Example:**\n```\nInput: root = [6,2,8,0,4,7,9,null,null,3,5], p = 2, q = 8\nOutput: 6\nExplanation: The LCA of nodes 2 and 8 is 6.\n\nInput: root = [6,2,8,0,4,7,9,null,null,3,5], p = 2, q = 4\nOutput: 2\nExplanation: The LCA of nodes 2 and 4 is 2, since a node can be a descendant of itself.\n```\n\n**Constraints:**\n- 2 <= Number of nodes <= 10^5\n- -10^9 <= Node.val <= 10^9\n- All Node.val are unique\n- p != q\n- p and q will exist in the BST"
+  },
+  {
+    "id": "102",
+    "title": "Binary Tree Level Order Traversal",
+    "metadata": {
+      "difficulty": "Medium",
+      "topics": [
+        "Tree",
+        "BFS",
+        "Queue"
+      ],
+      "companies": [
+        "Amazon",
+        "Microsoft",
+        "Apple"
+      ],
+      "frequency_rating": 4,
+      "leetcode_id": 102,
+      "verified": true
+    },
+    "search_text": "Traverse a binary tree level by level using breadth-first search.",
+    "judge_context": {
+      "optimal_solution_code": "class Solution {\n  levelOrder(root) {\n    if (!root) return [];\n    const res = [];\n    const queue = [root];\n    while (queue.length) {\n      const size = queue.length;\n      const level = [];\n      for (let i = 0; i < size; i++) {\n        const node = queue.shift();\n        level.push(node.val);\n        if (node.left) queue.push(node.left);\n        if (node.right) queue.push(node.right);\n      }\n      res.push(level);\n    }\n    return res;\n  }\n}",
+      "time_complexity": "O(n)",
+      "space_complexity": "O(n)",
+      "edge_cases": [
+        "Empty tree",
+        "Single node tree",
+        "Highly unbalanced tree"
+      ],
+      "key_insights": [
+        "Queue naturally supports BFS",
+        "Process nodes level by level",
+        "Track level size before traversal"
+      ]
+    },
+    "display_markdown": "### Binary Tree Level Order Traversal\n\nGiven the root of a binary tree, return the level order traversal of its nodes' values. (i.e., from left to right, level by level).\n\n**Example:**\n```\nInput: root = [3,9,20,null,null,15,7]\nOutput: [[3],[9,20],[15,7]]\n\nInput: root = [1]\nOutput: [[1]]\n```\n\n**Constraints:**\n- 0 <= Number of nodes <= 2000\n- -1000 <= Node.val <= 1000"
+  },
+  {
+    "id": "100",
+    "title": "Same Tree",
+    "metadata": {
+      "difficulty": "Easy",
+      "topics": [
+        "Tree",
+        "DFS"
+      ],
+      "companies": [
+        "Google",
+        "Amazon"
+      ],
+      "frequency_rating": 3,
+      "leetcode_id": 100,
+      "verified": true
+    },
+    "search_text": "Determine whether two binary trees are structurally identical with equal node values.",
+    "judge_context": {
+      "optimal_solution_code": "class Solution {\n  isSameTree(p, q) {\n    if (!p && !q) return true;\n    if (!p || !q) return false;\n    if (p.val !== q.val) return false;\n    return this.isSameTree(p.left, q.left) && this.isSameTree(p.right, q.right);\n  }\n}",
+      "time_complexity": "O(n)",
+      "space_complexity": "O(n)",
+      "edge_cases": [
+        "Both trees empty",
+        "One tree empty",
+        "Different structure"
+      ],
+      "key_insights": [
+        "Compare structure and value simultaneously",
+        "DFS traversal fits naturally",
+        "Early termination on mismatch"
+      ]
+    },
+    "display_markdown": "### Same Tree\n\nGiven the roots of two binary trees p and q, write a function to check if they are the same or not.\n\nTwo binary trees are considered the same if they are structurally identical, and the nodes have the same value.\n\n**Example:**\n```\nInput: p = [1,2,3], q = [1,2,3]\nOutput: true\n\nInput: p = [1,2], q = [1,null,2]\nOutput: false\n```\n\n**Constraints:**\n- 0 <= Number of nodes <= 100\n- -10^4 <= Node.val <= 10^4"
+  },
+  {
+    "id": "101",
+    "title": "Symmetric Tree",
+    "metadata": {
+      "difficulty": "Easy",
+      "topics": [
+        "Tree",
+        "DFS",
+        "BFS"
+      ],
+      "companies": [
+        "Google",
+        "Amazon",
+        "Microsoft"
+      ],
+      "frequency_rating": 4,
+      "leetcode_id": 101,
+      "verified": true
+    },
+    "search_text": "Check whether a binary tree is symmetric around its center.",
+    "judge_context": {
+      "optimal_solution_code": "class Solution {\n  isSymmetric(root) {\n    const isMirror = (a, b) => {\n      if (!a && !b) return true;\n      if (!a || !b) return false;\n      if (a.val !== b.val) return false;\n      return isMirror(a.left, b.right) && isMirror(a.right, b.left);\n    };\n    return isMirror(root, root);\n  }\n}",
+      "time_complexity": "O(n)",
+      "space_complexity": "O(n)",
+      "edge_cases": [
+        "Empty tree",
+        "Single node",
+        "Asymmetric subtrees"
+      ],
+      "key_insights": [
+        "Mirror comparison of subtrees",
+        "Recursive or iterative both valid",
+        "Structure and values must mirror"
+      ]
+    },
+    "display_markdown": "### Symmetric Tree\n\nGiven the root of a binary tree, check whether it is a mirror of itself (i.e., symmetric around its center).\n\n**Example:**\n```\nInput: root = [1,2,2,3,4,4,3]\nOutput: true\n\nInput: root = [1,2,2,null,3,null,3]\nOutput: false\n```\n\n**Constraints:**\n- 0 <= Number of nodes <= 1000\n- -100 <= Node.val <= 100"
+  },
+  {
+    "id": "112",
+    "title": "Path Sum",
+    "metadata": {
+      "difficulty": "Easy",
+      "topics": [
+        "Tree",
+        "DFS"
+      ],
+      "companies": [
+        "Google",
+        "Amazon"
+      ],
+      "frequency_rating": 3,
+      "leetcode_id": 112,
+      "verified": true
+    },
+    "search_text": "Determine if the tree has a root-to-leaf path with a given sum.",
+    "judge_context": {
+      "optimal_solution_code": "class Solution {\n  hasPathSum(root, targetSum) {\n    if (!root) return false;\n    if (!root.left && !root.right) return root.val === targetSum;\n    return this.hasPathSum(root.left, targetSum - root.val) ||\n           this.hasPathSum(root.right, targetSum - root.val);\n  }\n}",
+      "time_complexity": "O(n)",
+      "space_complexity": "O(n)",
+      "edge_cases": [
+        "Empty tree",
+        "Single node equals target",
+        "Negative values in tree"
+      ],
+      "key_insights": [
+        "Subtract current value from target",
+        "Check only root-to-leaf paths",
+        "DFS naturally explores all paths"
+      ]
+    },
+    "display_markdown": "### Path Sum\n\nGiven the root of a binary tree and an integer targetSum, return true if the tree has a root-to-leaf path such that adding up all the values along the path equals targetSum.\n\nA leaf is a node with no children.\n\n**Example:**\n```\nInput: root = [5,4,8,11,null,13,4,7,2,null,null,null,1], targetSum = 22\nOutput: true\nExplanation: The root-to-leaf path with the target sum is shown.\n\nInput: root = [1,2,3], targetSum = 5\nOutput: false\n```\n\n**Constraints:**\n- 0 <= Number of nodes <= 5000\n- -1000 <= Node.val <= 1000\n- -1000 <= targetSum <= 1000"
+  },
+  {
+    "id": "111",
+    "title": "Minimum Depth of Binary Tree",
+    "metadata": {
+      "difficulty": "Easy",
+      "topics": [
+        "Tree",
+        "BFS"
+      ],
+      "companies": [
+        "Google",
+        "Amazon"
+      ],
+      "frequency_rating": 3,
+      "leetcode_id": 111,
+      "verified": true
+    },
+    "search_text": "Find the minimum depth from root to the nearest leaf node.",
+    "judge_context": {
+      "optimal_solution_code": "class Solution {\n  minDepth(root) {\n    if (!root) return 0;\n    const queue = [[root, 1]];\n    while (queue.length) {\n      const [node, depth] = queue.shift();\n      if (!node.left && !node.right) return depth;\n      if (node.left) queue.push([node.left, depth + 1]);\n      if (node.right) queue.push([node.right, depth + 1]);\n    }\n  }\n}",
+      "time_complexity": "O(n)",
+      "space_complexity": "O(n)",
+      "edge_cases": [
+        "Empty tree",
+        "Single node tree",
+        "Only one child present"
+      ],
+      "key_insights": [
+        "BFS finds shortest path first",
+        "Leaf node defines depth",
+        "DFS needs special handling for null children"
+      ]
+    },
+    "display_markdown": "### Minimum Depth of Binary Tree\n\nGiven a binary tree, find its minimum depth.\n\nThe minimum depth is the number of nodes along the shortest path from the root node down to the nearest leaf node.\n\n**Example:**\n```\nInput: root = [3,9,20,null,null,15,7]\nOutput: 2\n\nInput: root = [2,null,3,null,4,null,5,null,6]\nOutput: 5\n```\n\n**Constraints:**\n- 0 <= Number of nodes <= 10^5\n- -1000 <= Node.val <= 1000"
+  },
+  {
+    "id": "110",
+    "title": "Balanced Binary Tree",
+    "metadata": {
+      "difficulty": "Easy",
+      "topics": [
+        "Tree",
+        "DFS"
+      ],
+      "companies": [
+        "Google",
+        "Amazon",
+        "Microsoft"
+      ],
+      "frequency_rating": 4,
+      "leetcode_id": 110,
+      "verified": true
+    },
+    "search_text": "Determine if a binary tree is height-balanced.",
+    "judge_context": {
+      "optimal_solution_code": "class Solution {\n  isBalanced(root) {\n    const height = (node) => {\n      if (!node) return 0;\n      const l = height(node.left);\n      if (l === -1) return -1;\n      const r = height(node.right);\n      if (r === -1) return -1;\n      if (Math.abs(l - r) > 1) return -1;\n      return Math.max(l, r) + 1;\n    };\n    return height(root) !== -1;\n  }\n}",
+      "time_complexity": "O(n)",
+      "space_complexity": "O(n)",
+      "edge_cases": [
+        "Empty tree",
+        "Single node tree",
+        "Highly unbalanced subtree"
+      ],
+      "key_insights": [
+        "Bottom-up height calculation",
+        "Early exit on imbalance",
+        "Avoid repeated height computation"
+      ]
+    },
+    "display_markdown": "### Balanced Binary Tree\n\nGiven a binary tree, determine if it is height-balanced.\n\nA height-balanced binary tree is a binary tree in which the depth of the two subtrees of every node never differs by more than one.\n\n**Example:**\n```\nInput: root = [3,9,20,null,null,15,7]\nOutput: true\n\nInput: root = [1,2,2,3,3,null,null,4,4]\nOutput: false\n```\n\n**Constraints:**\n- 0 <= Number of nodes <= 5000\n- -10^4 <= Node.val <= 10^4"
+  },
+  {
+    "id": "206",
+    "title": "Reverse Linked List",
+    "metadata": {
+      "difficulty": "Easy",
+      "topics": [
+        "Linked List"
+      ],
+      "companies": [
+        "Google",
+        "Amazon",
+        "Microsoft"
+      ],
+      "frequency_rating": 5,
+      "leetcode_id": 206,
+      "verified": true
+    },
+    "search_text": "Reverse a singly linked list and return the reversed list.",
+    "judge_context": {
+      "optimal_solution_code": "class Solution {\n  reverseList(head) {\n    let prev = null;\n    let curr = head;\n    while (curr) {\n      const next = curr.next;\n      curr.next = prev;\n      prev = curr;\n      curr = next;\n    }\n    return prev;\n  }\n}",
+      "time_complexity": "O(n)",
+      "space_complexity": "O(1)",
+      "edge_cases": [
+        "Empty list",
+        "Single node list",
+        "Two node list"
+      ],
+      "key_insights": [
+        "Iterative pointer reversal",
+        "Track previous, current, and next nodes",
+        "In-place reversal without extra memory"
+      ]
+    },
+    "display_markdown": "### Reverse Linked List\n\nGiven the head of a singly linked list, reverse the list, and return the reversed list.\n\n**Example:**\n```\nInput: head = [1,2,3,4,5]\nOutput: [5,4,3,2,1]\n\nInput: head = [1,2]\nOutput: [2,1]\n```\n\n**Constraints:**\n- 0 <= Number of nodes <= 5000\n- -5000 <= Node.val <= 5000"
+  },
+  {
+    "id": "141",
+    "title": "Linked List Cycle",
+    "metadata": {
+      "difficulty": "Easy",
+      "topics": [
+        "Linked List",
+        "Two Pointers"
+      ],
+      "companies": [
+        "Google",
+        "Amazon"
+      ],
+      "frequency_rating": 4,
+      "leetcode_id": 141,
+      "verified": true
+    },
+    "search_text": "Detect whether a linked list contains a cycle.",
+    "judge_context": {
+      "optimal_solution_code": "class Solution {\n  hasCycle(head) {\n    let slow = head;\n    let fast = head;\n    while (fast && fast.next) {\n      slow = slow.next;\n      fast = fast.next.next;\n      if (slow === fast) return true;\n    }\n    return false;\n  }\n}",
+      "time_complexity": "O(n)",
+      "space_complexity": "O(1)",
+      "edge_cases": [
+        "Empty list",
+        "Single node without cycle",
+        "Self-loop cycle"
+      ],
+      "key_insights": [
+        "Floyd’s cycle detection algorithm",
+        "Fast pointer moves twice as fast",
+        "Meeting point implies a cycle"
+      ]
+    },
+    "display_markdown": "### Linked List Cycle\n\nGiven head, the head of a linked list, determine if the linked list has a cycle in it.\n\nThere is a cycle in a linked list if there is some node in the list that can be reached again by continuously following the next pointer.\n\nReturn true if there is a cycle in the linked list. Otherwise, return false.\n\n**Example:**\n```\nInput: head = [3,2,0,-4], pos = 1\nOutput: true\nExplanation: There is a cycle in the linked list, where the tail connects to the 1st node (0-indexed).\n\nInput: head = [1], pos = -1\nOutput: false\n```\n\n**Constraints:**\n- 0 <= Number of nodes <= 10^4\n- -10^5 <= Node.val <= 10^5\n- pos is -1 or a valid index in the linked-list"
+  },
+  {
+    "id": "104",
+    "title": "Maximum Depth of Binary Tree",
+    "metadata": {
+      "difficulty": "Easy",
+      "topics": [
+        "Tree",
+        "DFS",
+        "BFS"
+      ],
+      "companies": [
+        "Google",
+        "Amazon",
+        "Microsoft"
+      ],
+      "frequency_rating": 4,
+      "leetcode_id": 104,
+      "verified": true
+    },
+    "search_text": "Find the maximum depth of a binary tree from root to the farthest leaf.",
+    "judge_context": {
+      "optimal_solution_code": "class Solution {\n  maxDepth(root) {\n    if (!root) return 0;\n    return 1 + Math.max(this.maxDepth(root.left), this.maxDepth(root.right));\n  }\n}",
+      "time_complexity": "O(n)",
+      "space_complexity": "O(n)",
+      "edge_cases": [
+        "Empty tree",
+        "Single node tree",
+        "Skewed tree"
+      ],
+      "key_insights": [
+        "Depth defined by longest root-to-leaf path",
+        "DFS naturally computes height",
+        "BFS level count is alternative approach"
+      ]
+    },
+    "display_markdown": "### Maximum Depth of Binary Tree\n\nGiven the root of a binary tree, return its maximum depth.\n\nA binary tree's maximum depth is the number of nodes along the longest path from the root node down to the farthest leaf node.\n\n**Example:**\n```\nInput: root = [3,9,20,null,null,15,7]\nOutput: 3\n\nInput: root = [1,null,2]\nOutput: 2\n```\n\n**Constraints:**\n- 0 <= Number of nodes <= 10^4\n- -100 <= Node.val <= 100"
+  },
+  {
+    "id": "169",
+    "title": "Majority Element",
+    "metadata": {
+      "difficulty": "Easy",
+      "topics": [
+        "Array",
+        "Voting Algorithm"
+      ],
+      "companies": [
+        "Google",
+        "Amazon"
+      ],
+      "frequency_rating": 4,
+      "leetcode_id": 169,
+      "verified": true
+    },
+    "search_text": "Find the element that appears more than n/2 times in an array.",
+    "judge_context": {
+      "optimal_solution_code": "class Solution {\n  majorityElement(nums) {\n    let count = 0;\n    let candidate = null;\n    for (const num of nums) {\n      if (count === 0) candidate = num;\n      count += num === candidate ? 1 : -1;\n    }\n    return candidate;\n  }\n}",
+      "time_complexity": "O(n)",
+      "space_complexity": "O(1)",
+      "edge_cases": [
+        "Single element array",
+        "All elements same",
+        "Majority at the end"
+      ],
+      "key_insights": [
+        "Boyer–Moore voting algorithm",
+        "Majority element always survives cancellation",
+        "No extra memory required"
+      ]
+    },
+    "display_markdown": "### Majority Element\n\nGiven an array nums of size n, return the majority element.\n\nThe majority element is the element that appears more than ⌊n / 2⌋ times. You may assume that the majority element always exists in the array.\n\n**Example:**\n```\nInput: nums = [3,2,3]\nOutput: 3\n\nInput: nums = [2,2,1,1,1,2,2]\nOutput: 2\n```\n\n**Constraints:**\n- 1 <= nums.length <= 5 * 10^4\n- -10^9 <= nums[i] <= 10^9"
+  },
+  {
+    "id": "217",
+    "title": "Contains Duplicate",
+    "metadata": {
+      "difficulty": "Easy",
+      "topics": [
+        "Array",
+        "Hash Table"
+      ],
+      "companies": [
+        "Google",
+        "Amazon"
+      ],
+      "frequency_rating": 3,
+      "leetcode_id": 217,
+      "verified": true
+    },
+    "search_text": "Check if any value appears at least twice in the array.",
+    "judge_context": {
+      "optimal_solution_code": "class Solution {\n  containsDuplicate(nums) {\n    const set = new Set();\n    for (const num of nums) {\n      if (set.has(num)) return true;\n      set.add(num);\n    }\n    return false;\n  }\n}",
+      "time_complexity": "O(n)",
+      "space_complexity": "O(n)",
+      "edge_cases": [
+        "Empty array",
+        "Single element",
+        "All unique elements"
+      ],
+      "key_insights": [
+        "Set provides constant-time lookup",
+        "Early exit on duplicate detection",
+        "Sorting-based solution also possible"
+      ]
+    },
+    "display_markdown": "### Contains Duplicate\n\nGiven an integer array nums, return true if any value appears at least twice in the array, and return false if every element is distinct.\n\n**Example:**\n```\nInput: nums = [1,2,3,1]\nOutput: true\n\nInput: nums = [1,2,3,4]\nOutput: false\n```\n\n**Constraints:**\n- 1 <= nums.length <= 10^5\n- -10^9 <= nums[i] <= 10^9"
+  },
+  {
+    "id": "242",
+    "title": "Valid Anagram",
+    "metadata": {
+      "difficulty": "Easy",
+      "topics": [
+        "Hash Table",
+        "String"
+      ],
+      "companies": [
+        "Google",
+        "Amazon",
+        "Microsoft"
+      ],
+      "frequency_rating": 4,
+      "leetcode_id": 242,
+      "verified": true
+    },
+    "search_text": "Determine whether two strings are anagrams of each other.",
+    "judge_context": {
+      "optimal_solution_code": "class Solution {\n  isAnagram(s, t) {\n    if (s.length !== t.length) return false;\n    const count = {};\n    for (const ch of s) count[ch] = (count[ch] || 0) + 1;\n    for (const ch of t) {\n      if (!count[ch]) return false;\n      count[ch]--;\n    }\n    return true;\n  }\n}",
+      "time_complexity": "O(n)",
+      "space_complexity": "O(1)",
+      "edge_cases": [
+        "Different lengths",
+        "Same characters different order",
+        "Repeated characters"
+      ],
+      "key_insights": [
+        "Frequency counting avoids sorting",
+        "Character counts must match exactly",
+        "Constant space for fixed alphabet"
+      ]
+    },
+    "display_markdown": "### Valid Anagram\n\nGiven two strings s and t, return true if t is an anagram of s, and false otherwise.\n\nAn Anagram is a word or phrase formed by rearranging the letters of a different word or phrase, typically using all the original letters exactly once.\n\n**Example:**\n```\nInput: s = \"anagram\", t = \"nagaram\"\nOutput: true\n\nInput: s = \"rat\", t = \"car\"\nOutput: false\n```\n\n**Constraints:**\n- 1 <= s.length, t.length <= 5 * 10^4\n- s and t consist of lowercase English letters"
+  }
+]

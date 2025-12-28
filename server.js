@@ -1,0 +1,177 @@
+require('dotenv').config();
+const express = require('express');
+const fs = require('fs');
+const cors = require('cors');
+const { VertexAI } = require('@google-cloud/vertexai');
+const { GoogleAuth } = require('google-auth-library');
+
+// Use dynamic import for node-fetch to match your seed.js style
+const fetch = (...args) => import('node-fetch').then(({default: fetch}) => fetch(...args));
+
+const app = express();
+app.use(express.json());
+app.use(cors());
+
+// --- AUTHENTICATION SETUP ---
+process.env.GOOGLE_APPLICATION_CREDENTIALS = './credentials/google-cloud-key.json';
+
+const vertex_ai = new VertexAI({
+    project: process.env.GOOGLE_CLOUD_PROJECT_ID,
+    location: 'us-central1' 
+});
+
+// Load Database
+const VECTOR_DB = JSON.parse(fs.readFileSync('./data/questions_with_vectors.json', 'utf8'));
+
+// Initialize Judge Model
+const generativeModel = vertex_ai.getGenerativeModel({
+    model: 'gemini-2.5-flash',
+});
+
+// Helper function to get Access Token (Matching your seed.js)
+async function getAccessToken() {
+    const auth = new GoogleAuth({
+        keyFilename: process.env.GOOGLE_APPLICATION_CREDENTIALS,
+        scopes: ['https://www.googleapis.com/auth/cloud-platform'],
+    });
+    const client = await auth.getClient();
+    const token = await client.getAccessToken();
+    return token.token;
+}
+
+// Similarity Function
+function getSimilarity(vecA, vecB) {
+    if (!vecA || !vecB) return 0;
+    let dotProduct = 0;
+    let normA = 0;
+    let normB = 0;
+    for (let i = 0; i < vecA.length; i++) {
+        dotProduct += vecA[i] * vecB[i];
+        normA += vecA[i] * vecA[i];
+        normB += vecB[i] * vecB[i];
+    }
+    return dotProduct / (Math.sqrt(normA) * Math.sqrt(normB));
+}
+
+app.get("/filters", (req, res) => {
+    const companies = new Set();
+    const difficulties = new Set();
+    const topics = new Set();
+
+    VECTOR_DB.forEach(q => {
+        if(q.metadata.companies) q.metadata.companies.forEach(c => companies.add(c));
+        if(q.metadata.difficulty) difficulties.add(q.metadata.difficulty);
+        if(q.metadata.topics) q.metadata.topics.forEach(t => topics.add(t));
+    });
+
+    res.json({
+        companies: Array.from(companies).sort(),
+        difficulties: Array.from(difficulties).sort(),
+        topics: Array.from(topics).sort()
+    });
+});
+
+// --- UPDATED SEARCH ROUTE (REST API VERSION) ---
+app.post('/search', async (req, res) => {
+    try {
+        const { query, companyFilter, difficultyFilter, topicFilter } = req.body;
+        let candidates = VECTOR_DB;
+        
+        if (companyFilter && companyFilter !== "All") {
+            candidates = candidates.filter(q => q.metadata.companies.includes(companyFilter));
+        }
+        if (difficultyFilter && difficultyFilter !== "All") {
+            candidates = candidates.filter(q => q.metadata.difficulty === difficultyFilter);
+        }
+        if (topicFilter && topicFilter !== "All") {
+            candidates = candidates.filter(q => q.metadata.topics.includes(topicFilter));
+        }
+
+        if (candidates.length === 0) {
+            return res.status(404).json({ error: "No matching questions found." });
+        }
+
+        // 1. Get Token and Setup Vertex REST Call
+        const token = await getAccessToken();
+        const projectId = process.env.GOOGLE_CLOUD_PROJECT_ID;
+        const location = 'us-central1';
+        const endpoint = `https://${location}-aiplatform.googleapis.com/v1/projects/${projectId}/locations/${location}/publishers/google/models/text-embedding-004:predict`;
+
+        // 2. Generate Query Embedding via REST (to match seed.js)
+        const response = await fetch(endpoint, {
+            method: 'POST',
+            headers: {
+                'Authorization': `Bearer ${token}`,
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                instances: [{ content: query || "coding question" }],
+            }),
+        });
+
+        const result = await response.json();
+        
+        // Extract vector correctly from REST response
+        if (!result.predictions || !result.predictions[0]) {
+            throw new Error("Embedding API failed to return a vector.");
+        }
+        const queryVector = result.predictions[0].embeddings.values;
+
+        // 3. Perform Similarity Search
+        const rankedResults = candidates.map(q => ({
+            ...q,
+            similarity: getSimilarity(queryVector, q.embedding)
+        })).sort((a, b) => b.similarity - a.similarity);
+
+        const topMatch = { ...rankedResults[0] };
+        delete topMatch.embedding; 
+        res.json(topMatch);
+
+    } catch (error) {
+        console.error("Search Error:", error);
+        res.status(500).json({ error: "Search failed", details: error.message });
+    }
+});
+
+// --- VERTEX AI JUDGE ROUTE ---
+app.post('/analyze', async (req, res) => {
+    try {
+        const { code, transcript, questionTitle, judgeContext } = req.body;
+        console.log("--- SUBMISSION RECEIVED (VERTEX AI) ---");
+
+        const prompt = 
+        {
+            contents: [{
+                role: 'user',
+                parts: [{
+                    text: `Evaluate this coding attempt for: ${questionTitle}.
+                    Expected Logic/Code: ${JSON.stringify(judgeContext)}
+                    User Code: ${code}
+                    User Explanation: ${transcript}
+
+                    Return only a JSON object with:
+                    - score (0-100)
+                    - breakdown (correctness, efficiency, communication as 0-100)
+                    - feedback (Detailed constructive advice)
+                    - report (A short summary of performance)
+                    `
+                }]
+            }],
+            generationConfig: {
+                responseMimeType: "application/json",
+            }
+        };
+        const result = await generativeModel.generateContent(prompt);
+        const response = await result.response;
+        const text = response.candidates[0].content.parts[0].text;
+
+        console.log("AI Evaluation Complete.");
+        res.json(JSON.parse(text));
+
+    } catch (error) {
+        console.error("VERTEX ANALYSIS ERROR:", error.message);
+        res.status(500).json({ error: "Analysis failed", details: error.message });
+    }
+});
+
+app.listen(3000, () => console.log("🚀 Vertex AI Server running on port 3000"));
