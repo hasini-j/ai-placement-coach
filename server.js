@@ -71,7 +71,7 @@ app.get("/filters", (req, res) => {
     });
 });
 
-// --- UPDATED SEARCH ROUTE (REST API VERSION) ---
+// --- UPDATED SEARCH ROUTE (RANDOM QUESTION) ---
 app.post('/search', async (req, res) => {
     try {
         const { query, companyFilter, difficultyFilter, topicFilter } = req.body;
@@ -123,14 +123,95 @@ app.post('/search', async (req, res) => {
             similarity: getSimilarity(queryVector, q.embedding)
         })).sort((a, b) => b.similarity - a.similarity);
 
-        const topMatch = { ...rankedResults[0] };
-        delete topMatch.embedding; 
-        res.json(topMatch);
+        // 🎲 PICK A RANDOM QUESTION FROM TOP 10 RESULTS (or less if fewer available)
+        const topCount = Math.min(10, rankedResults.length);
+        const randomIndex = Math.floor(Math.random() * topCount);
+        const selectedQuestion = { ...rankedResults[randomIndex] };
+        
+        delete selectedQuestion.embedding; 
+        res.json(selectedQuestion);
 
     } catch (error) {
         console.error("Search Error:", error);
         res.status(500).json({ error: "Search failed", details: error.message });
     }
+});
+
+// --- NEW ROUTE: GET ALL MATCHING QUESTIONS ---
+app.post('/search-all', async (req, res) => {
+    try {
+        const { query, companyFilter, difficultyFilter, topicFilter } = req.body;
+        let candidates = VECTOR_DB;
+        
+        if (companyFilter && companyFilter !== "All") {
+            candidates = candidates.filter(q => q.metadata.companies.includes(companyFilter));
+        }
+        if (difficultyFilter && difficultyFilter !== "All") {
+            candidates = candidates.filter(q => q.metadata.difficulty === difficultyFilter);
+        }
+        if (topicFilter && topicFilter !== "All") {
+            candidates = candidates.filter(q => q.metadata.topics.includes(topicFilter));
+        }
+
+        if (candidates.length === 0) {
+            return res.status(404).json({ error: "No matching questions found." });
+        }
+
+        // 1. Get Token and Setup Vertex REST Call
+        const token = await getAccessToken();
+        const projectId = process.env.GOOGLE_CLOUD_PROJECT_ID;
+        const location = 'us-central1';
+        const endpoint = `https://${location}-aiplatform.googleapis.com/v1/projects/${projectId}/locations/${location}/publishers/google/models/text-embedding-004:predict`;
+
+        // 2. Generate Query Embedding via REST
+        const response = await fetch(endpoint, {
+            method: 'POST',
+            headers: {
+                'Authorization': `Bearer ${token}`,
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                instances: [{ content: query || "coding question" }],
+            }),
+        });
+
+        const result = await response.json();
+        
+        if (!result.predictions || !result.predictions[0]) {
+            throw new Error("Embedding API failed to return a vector.");
+        }
+        const queryVector = result.predictions[0].embeddings.values;
+
+        // 3. Perform Similarity Search and return ALL results (sorted)
+        const rankedResults = candidates.map(q => ({
+            id: q.id,
+            title: q.title,
+            difficulty: q.metadata.difficulty,
+            topics: q.metadata.topics,
+            companies: q.metadata.companies,
+            similarity: getSimilarity(queryVector, q.embedding)
+        })).sort((a, b) => b.similarity - a.similarity);
+
+        res.json(rankedResults);
+
+    } catch (error) {
+        console.error("Search All Error:", error);
+        res.status(500).json({ error: "Search failed", details: error.message });
+    }
+});
+
+// --- NEW ROUTE: GET QUESTION BY ID ---
+app.get('/question/:id', (req, res) => {
+    const questionId = req.params.id;
+    const question = VECTOR_DB.find(q => q.id === questionId);
+    
+    if (!question) {
+        return res.status(404).json({ error: "Question not found" });
+    }
+    
+    const questionCopy = { ...question };
+    delete questionCopy.embedding;
+    res.json(questionCopy);
 });
 
 // --- VERTEX AI JUDGE ROUTE ---
