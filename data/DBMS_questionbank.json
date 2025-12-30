@@ -1,0 +1,645 @@
+[
+  {
+    "id": "dbms_01",
+    "subject": "DBMS",
+    "topic": "Basics",
+    "difficulty": "Easy",
+    "source": "GeeksforGeeks",
+    "question": "What is a Database Management System (DBMS)?",
+    "expected_points": [
+      "Software for managing and maintaining data",
+      "Interface between user and database",
+      "Storage, retrieval, and modification of data",
+      "Handles security, integrity, and concurrency"
+    ],
+    "keywords": ["software", "interface", "storage", "retrieval", "management"],
+    "reference_answer": "A DBMS is a software system used to store, manage, and retrieve data efficiently. It acts as an interface between the user and the database, ensuring data is organized, secure, and easily accessible while handling tasks like concurrency control and backup."
+  },
+  {
+    "id": "dbms_02",
+    "subject": "DBMS",
+    "topic": "Basics",
+    "difficulty": "Easy",
+    "source": "GeeksforGeeks",
+    "question": "What are the advantages of using a DBMS over a file-based system?",
+    "expected_points": [
+      "Reduces data redundancy and inconsistency",
+      "Improved data security and integrity",
+      "Concurrent access by multiple users",
+      "Efficient data retrieval through indexing"
+    ],
+    "keywords": ["redundancy", "consistency", "integrity", "concurrency", "security"],
+    "reference_answer": "DBMS offers several advantages over file systems, including reduced data redundancy, better data consistency, enhanced security, atomicity of updates, and the ability for multiple users to access data concurrently without conflicts."
+  },
+  {
+    "id": "dbms_03",
+    "subject": "DBMS",
+    "topic": "Basics",
+    "difficulty": "Easy",
+    "source": "GeeksforGeeks",
+    "question": "What is the difference between DBMS and RDBMS?",
+    "expected_points": [
+      "DBMS stores data as files; RDBMS stores data in tables",
+      "RDBMS uses primary and foreign keys for relationships",
+      "RDBMS supports ACID properties",
+      "RDBMS allows distributed databases"
+    ],
+    "keywords": ["tabular", "relationships", "ACID", "keys", "relational"],
+    "reference_answer": "DBMS stores data in a file format without enforced relationships between files, whereas RDBMS (Relational DBMS) stores data in tables with rows and columns, using keys to establish relationships and strictly following ACID properties."
+  },
+  {
+    "id": "dbms_04",
+    "subject": "DBMS",
+    "topic": "Properties",
+    "difficulty": "Medium",
+    "source": "GeeksforGeeks",
+    "question": "Explain ACID properties in DBMS.",
+    "expected_points": [
+      "Atomicity: Entire transaction succeeds or fails",
+      "Consistency: Database stays in valid state",
+      "Isolation: Transactions run independently",
+      "Durability: Committed changes are permanent"
+    ],
+    "keywords": ["atomicity", "consistency", "isolation", "durability", "transaction"],
+    "reference_answer": "ACID properties ensure transaction reliability: Atomicity (all or nothing), Consistency (preserves database rules), Isolation (prevents interference between concurrent transactions), and Durability (guarantees data survives system failures)."
+  },
+  {
+    "id": "dbms_05",
+    "subject": "DBMS",
+    "topic": "Architecture",
+    "difficulty": "Medium",
+    "source": "GeeksforGeeks",
+    "question": "Explain the 3-level architecture of DBMS.",
+    "expected_points": [
+      "Physical level: How data is stored on disk",
+      "Conceptual level: Logical structure and relationships",
+      "External/View level: User-specific data perspective",
+      "Provides data independence"
+    ],
+    "keywords": ["physical", "conceptual", "external", "abstraction", "independence"],
+    "reference_answer": "The 3-level architecture separates the physical storage (Internal level), the logical schema (Conceptual level), and the specific views for individual users (External level). This separation provides data independence."
+  },
+  {
+    "id": "dbms_06",
+    "subject": "DBMS",
+    "topic": "Keys",
+    "difficulty": "Easy",
+    "source": "GeeksforGeeks",
+    "question": "What are the different types of keys in DBMS?",
+    "expected_points": [
+      "Primary Key: Uniquely identifies a record",
+      "Candidate Key: Minimal set of unique attributes",
+      "Super Key: Set of attributes identifying a tuple",
+      "Foreign Key: Link between two tables"
+    ],
+    "keywords": ["primary", "candidate", "super", "foreign", "alternate"],
+    "reference_answer": "Common keys include the Primary Key (unique non-null identifier), Candidate Keys (potential primary keys), Super Keys (any identifying combination), and Foreign Keys (used to maintain referential integrity between tables)."
+  },
+  {
+    "id": "dbms_07",
+    "subject": "DBMS",
+    "topic": "Normalization",
+    "difficulty": "Medium",
+    "source": "GeeksforGeeks",
+    "question": "What is normalization and why is it used?",
+    "expected_points": [
+      "Process of organizing data in a database",
+      "Reduces data redundancy",
+      "Eliminates insertion, deletion, and update anomalies",
+      "Improves data integrity"
+    ],
+    "keywords": ["redundancy", "anomalies", "integrity", "organization"],
+    "reference_answer": "Normalization is the process of splitting large, redundant tables into smaller ones to eliminate data duplication and prevent anomalies like lost updates or inconsistent deletions during data operations."
+  },
+  {
+    "id": "dbms_08",
+    "subject": "DBMS",
+    "topic": "Normalization",
+    "difficulty": "Hard",
+    "source": "GeeksforGeeks",
+    "question": "Explain 1NF, 2NF, and 3NF.",
+    "expected_points": [
+      "1NF: No multi-valued or composite attributes",
+      "2NF: In 1NF and no partial dependencies",
+      "3NF: In 2NF and no transitive dependencies"
+    ],
+    "keywords": ["atomic", "partial dependency", "transitive dependency", "normal forms"],
+    "reference_answer": "1NF requires atomic values. 2NF removes partial dependencies (non-key attributes depending on part of a primary key). 3NF removes transitive dependencies (non-key attributes depending on other non-key attributes)."
+  },
+  {
+    "id": "dbms_09",
+    "subject": "DBMS",
+    "topic": "Modeling",
+    "difficulty": "Easy",
+    "source": "GeeksforGeeks",
+    "question": "What is an Entity-Relationship (ER) diagram?",
+    "expected_points": [
+      "Visual representation of data requirements",
+      "Entities: Real-world objects (rectangles)",
+      "Attributes: Properties of entities (ellipses)",
+      "Relationships: Interactions between entities (diamonds)"
+    ],
+    "keywords": ["entity", "attribute", "relationship", "conceptual", "diagram"],
+    "reference_answer": "An ER diagram is a high-level conceptual data model that uses visual symbols to represent entities, their attributes, and the relationships between them to help design a database structure."
+  },
+  {
+    "id": "dbms_10",
+    "subject": "DBMS",
+    "topic": "SQL",
+    "difficulty": "Medium",
+    "source": "GeeksforGeeks",
+    "question": "What is the difference between DELETE and TRUNCATE?",
+    "expected_points": [
+      "DELETE is DML; TRUNCATE is DDL",
+      "DELETE can filter rows with WHERE; TRUNCATE cannot",
+      "DELETE logs row by row; TRUNCATE is faster",
+      "DELETE can be rolled back; TRUNCATE cannot"
+    ],
+    "keywords": ["DML", "DDL", "rollback", "WHERE", "speed"],
+    "reference_answer": "DELETE is a DML command used to remove specific rows and can be rolled back because it logs each deletion. TRUNCATE is a faster DDL command that removes all rows from a table without individual row logging and cannot be rolled back."
+  },
+  {
+    "id": "dbms_11",
+    "subject": "DBMS",
+    "topic": "Integrity",
+    "difficulty": "Medium",
+    "source": "GeeksforGeeks",
+    "question": "What are the different integrity rules in DBMS?",
+    "expected_points": [
+      "Entity Integrity: Primary key cannot be NULL",
+      "Referential Integrity: Foreign key must match a primary key or be NULL",
+      "Domain Integrity: Values must fall within a defined range/type",
+      "User-defined Integrity: Custom business rules"
+    ],
+    "keywords": ["entity", "referential", "domain", "null", "primary key"],
+    "reference_answer": "Integrity rules ensure data accuracy and consistency. Key rules include Entity Integrity (primary keys can't be null), Referential Integrity (maintaining relationships between tables), and Domain Integrity (restricting data types/values)."
+  },
+  {
+    "id": "dbms_12",
+    "subject": "SQL",
+    "topic": "Joins",
+    "difficulty": "Medium",
+    "source": "GeeksforGeeks",
+    "question": "What is a Join in SQL? Explain its types.",
+    "expected_points": [
+      "Combines rows from two or more tables",
+      "Inner Join: Common records in both tables",
+      "Left Join: All from left + matching from right",
+      "Right Join: All from right + matching from left",
+      "Full Join: All records when there is a match in either"
+    ],
+    "keywords": ["inner join", "left outer", "right outer", "full outer", "matching"],
+    "reference_answer": "A JOIN clause is used to combine rows from two or more tables based on a related column. Common types are Inner Join (intersection), Left/Right Outer Joins (all from one side plus matches), and Full Outer Join."
+  },
+  {
+    "id": "dbms_13",
+    "subject": "DBMS",
+    "topic": "Indexing",
+    "difficulty": "Medium",
+    "source": "GeeksforGeeks",
+    "question": "What are indexes, and why are they used?",
+    "expected_points": [
+      "Data structures to speed up retrieval",
+      "Reduces disk I/O operations",
+      "Clustered: Stores data rows in order of key",
+      "Non-Clustered: Separate structure with pointers"
+    ],
+    "keywords": ["retrieval", "speed", "clustered", "non-clustered", "pointers"],
+    "reference_answer": "Indexes are database objects used to speed up data retrieval by providing a faster path to data rows. While they improve read performance, they can slow down write operations (INSERT/UPDATE)."
+  },
+  {
+    "id": "dbms_14",
+    "subject": "DBMS",
+    "topic": "Indexing",
+    "difficulty": "Hard",
+    "source": "GeeksforGeeks",
+    "question": "Explain the difference between a Clustered and a Non-Clustered index.",
+    "expected_points": [
+      "Clustered: Physical order of rows matches index order",
+      "Non-Clustered: Physical order doesn't match; uses pointers",
+      "Only one Clustered index per table",
+      "Multiple Non-Clustered indexes allowed"
+    ],
+    "keywords": ["physical order", "pointers", "unique", "multiple", "leaf nodes"],
+    "reference_answer": "A Clustered index determines the physical order of data in the table, while a Non-Clustered index is a separate structure that points to the data. Tables can only have one clustered index but many non-clustered ones."
+  },
+  {
+    "id": "dbms_15",
+    "subject": "DBMS",
+    "topic": "Concurrency",
+    "difficulty": "Medium",
+    "source": "GeeksforGeeks",
+    "question": "What is a Deadlock in DBMS?",
+    "expected_points": [
+      "Two or more transactions waiting for each other indefinitely",
+      "Forms a circular dependency",
+      "Requires intervention (like a rollback) to break",
+      "Prevention vs. Detection strategies"
+    ],
+    "keywords": ["waiting", "indefinitely", "circular", "rollback", "prevention"],
+    "reference_answer": "A deadlock is a situation where two or more transactions are stuck in a circular wait, each holding a resource the other needs. Progress is impossible unless one transaction is terminated."
+  },
+  {
+    "id": "dbms_16",
+    "subject": "DBMS",
+    "topic": "Advanced SQL",
+    "difficulty": "Medium",
+    "source": "GeeksforGeeks",
+    "question": "What is a View and why is it used?",
+    "expected_points": [
+      "Virtual table based on a SQL query",
+      "Does not store data physically (unless materialized)",
+      "Simplifies complex queries",
+      "Provides a security layer by hiding columns"
+    ],
+    "keywords": ["virtual", "security", "abstraction", "simplified", "read-only"],
+    "reference_answer": "A View is a virtual table that doesn't store data itself but displays the results of a pre-defined query. Views are used for security, data abstraction, and simplifying complex joins."
+  },
+  {
+    "id": "dbms_17",
+    "subject": "DBMS",
+    "topic": "Advanced SQL",
+    "difficulty": "Hard",
+    "source": "GeeksforGeeks",
+    "question": "What is the difference between a Stored Procedure and a Trigger?",
+    "expected_points": [
+      "Stored Procedure: Manually invoked; can take parameters",
+      "Trigger: Automatically executed on events (INSERT/UPDATE)",
+      "Procedures return values; Triggers do not",
+      "Procedures can be used for business logic"
+    ],
+    "keywords": ["manual", "automatic", "parameters", "events", "callback"],
+    "reference_answer": "Stored Procedures are precompiled SQL code invoked manually, whereas Triggers are automatic actions tied to specific database events like INSERT or DELETE."
+  },
+  {
+    "id": "dbms_18",
+    "subject": "SQL",
+    "topic": "Basics",
+    "difficulty": "Easy",
+    "source": "GeeksforGeeks",
+    "question": "What is a Subquery? Mention its types.",
+    "expected_points": [
+      "Query nested inside another query",
+      "Single-row subquery: Returns one row",
+      "Multi-row subquery: Returns multiple rows",
+      "Correlated subquery: References outer query columns"
+    ],
+    "keywords": ["nested", "inner query", "correlated", "exists", "in"],
+    "reference_answer": "A subquery is a query within another query (SELECT, INSERT, etc.). Types include single-row, multi-row, and correlated subqueries, where the inner query depends on the outer one."
+  },
+  {
+    "id": "dbms_19",
+    "subject": "SQL",
+    "topic": "Advanced SQL",
+    "difficulty": "Medium",
+    "source": "GeeksforGeeks",
+    "question": "What is the difference between WHERE and HAVING clauses?",
+    "expected_points": [
+      "WHERE: Filters rows before grouping",
+      "HAVING: Filters groups after GROUP BY",
+      "WHERE cannot use aggregate functions",
+      "HAVING is used specifically for aggregated data"
+    ],
+    "keywords": ["row filter", "group filter", "aggregate", "group by"],
+    "reference_answer": "The WHERE clause filters individual records before any grouping occurs. The HAVING clause is used to filter the summarized results after a GROUP BY operation."
+  },
+  {
+    "id": "dbms_20",
+    "subject": "SQL",
+    "topic": "Advanced SQL",
+    "difficulty": "Medium",
+    "source": "GeeksforGeeks",
+    "question": "What is the difference between UNION and UNION ALL?",
+    "expected_points": [
+      "UNION: Combines results and removes duplicates",
+      "UNION ALL: Combines results and keeps duplicates",
+      "UNION ALL is faster (no sorting/distinct step)",
+      "Both require same column count and data types"
+    ],
+    "keywords": ["duplicates", "distinct", "performance", "append"],
+    "reference_answer": "UNION combines result sets from two queries and removes duplicate rows, requiring extra processing. UNION ALL simply appends the sets, keeping duplicates and running faster."
+  },
+  {
+    "id": "sql_11",
+    "subject": "SQL",
+    "topic": "Window Functions",
+    "difficulty": "Hard",
+    "source": "GeeksforGeeks",
+    "question": "What is the difference between RANK(), DENSE_RANK(), and ROW_NUMBER()?",
+    "expected_points": [
+      "ROW_NUMBER(): Unique sequential number for each row",
+      "RANK(): Same rank for ties, but leaves gaps in sequence",
+      "DENSE_RANK(): Same rank for ties, but no gaps in sequence",
+      "All require OVER clause with ORDER BY"
+    ],
+    "keywords": ["window functions", "ranking", "ties", "gaps", "sequential"],
+    "reference_answer": "ROW_NUMBER() assigns a unique number to every row. RANK() assigns the same rank to ties but skips the next rank (e.g., 1, 2, 2, 4). DENSE_RANK() also assigns the same rank to ties but does not skip any numbers (e.g., 1, 2, 2, 3)."
+  },
+  {
+    "id": "sql_12",
+    "subject": "SQL",
+    "topic": "Advanced Queries",
+    "difficulty": "Medium",
+    "source": "GeeksforGeeks",
+    "question": "What is a Self-Join and when would you use it?",
+    "expected_points": [
+      "A table joined with itself",
+      "Requires table aliases to distinguish instances",
+      "Used for hierarchical data (e.g., Employee-Manager)",
+      "Used to compare rows within the same table"
+    ],
+    "keywords": ["self join", "alias", "hierarchy", "recursive"],
+    "reference_answer": "A self-join is a regular join where a table is joined with itself. It is commonly used to query hierarchical data, such as finding an employee's manager name where both exist in the same 'Employees' table."
+  },
+  {
+    "id": "sql_13",
+    "subject": "SQL",
+    "topic": "Common Table Expressions",
+    "difficulty": "Medium",
+    "source": "GeeksforGeeks",
+    "question": "What is a CTE (Common Table Expression) and its benefits?",
+    "expected_points": [
+      "Temporary result set defined using WITH clause",
+      "Improves query readability and maintainability",
+      "Can be used for recursive queries",
+      "Alternative to nested subqueries"
+    ],
+    "keywords": ["CTE", "WITH clause", "readability", "recursive", "temporary"],
+    "reference_answer": "A CTE is a temporary named result set available within the execution scope of a single SELECT, INSERT, UPDATE, or DELETE statement. It makes complex queries more readable compared to deep subquery nesting."
+  },
+  {
+    "id": "sql_14",
+    "subject": "SQL",
+    "topic": "Optimization",
+    "difficulty": "Hard",
+    "source": "GeeksforGeeks",
+    "question": "How can you optimize a slow-running SQL query?",
+    "expected_points": [
+      "Analyze execution plans (EXPLAIN)",
+      "Avoid SELECT * (retrieve only needed columns)",
+      "Ensure proper indexing on JOIN/WHERE columns",
+      "Minimize the use of wildcards at the start of strings"
+    ],
+    "keywords": ["performance", "execution plan", "indexing", "optimization", "EXPLAIN"],
+    "reference_answer": "Optimization involves several steps: using the EXPLAIN statement to find bottlenecks, adding indexes to columns used in filters or joins, avoiding 'SELECT *', and replacing subqueries with Joins or CTEs where appropriate."
+  },
+  {
+    "id": "sql_15",
+    "subject": "SQL",
+    "topic": "Advanced Queries",
+    "difficulty": "Medium",
+    "source": "GeeksforGeeks",
+    "question": "What is the difference between a Correlated and a Non-correlated Subquery?",
+    "expected_points": [
+      "Non-correlated: Evaluates once, independent of outer query",
+      "Correlated: Evaluates once for each row of the outer query",
+      "Correlated depends on values from the outer query",
+      "Correlated is generally slower for large datasets"
+    ],
+    "keywords": ["nested query", "correlated", "independent", "performance"],
+    "reference_answer": "A non-correlated subquery can be executed independently of the outer query. A correlated subquery references columns from the outer query, meaning it must be re-evaluated for every row processed by the outer query."
+  },
+  {
+    "id": "sql_16",
+    "subject": "SQL",
+    "topic": "Database Design",
+    "difficulty": "Medium",
+    "source": "GeeksforGeeks",
+    "question": "What is Database Denormalization and when is it useful?",
+    "expected_points": [
+      "Adding redundant data to a normalized database",
+      "Speeds up read performance by reducing JOINs",
+      "Common in OLAP (Analytical) systems",
+      "Trading data integrity for query speed"
+    ],
+    "keywords": ["denormalization", "redundancy", "read performance", "OLAP", "joins"],
+    "reference_answer": "Denormalization is the process of intentionally adding redundant data to a database to improve read performance. It is used when a database is read-intensive and the cost of joining multiple tables is too high."
+  },
+  {
+    "id": "sql_17",
+    "subject": "SQL",
+    "topic": "Functions",
+    "difficulty": "Easy",
+    "source": "GeeksforGeeks",
+    "question": "What is the purpose of the COALESCE() function?",
+    "expected_points": [
+      "Returns the first non-NULL value in a list",
+      "Used to handle NULL values in reports",
+      "Often used with multiple fallback options",
+      "Can replace CASE statements for simple NULL checks"
+    ],
+    "keywords": ["NULL", "fallback", "coalesce", "handling nulls"],
+    "reference_answer": "The COALESCE() function takes a list of arguments and returns the first one that is not NULL. It is extremely useful for providing default values when data might be missing."
+  },
+  {
+    "id": "sql_18",
+    "subject": "SQL",
+    "topic": "Transactions",
+    "difficulty": "Medium",
+    "source": "GeeksforGeeks",
+    "question": "Explain the COMMIT and ROLLBACK commands.",
+    "expected_points": [
+      "COMMIT: Permanently saves changes of a transaction",
+      "ROLLBACK: Undoes changes to the last commit/savepoint",
+      "Used in Transaction Control Language (TCL)",
+      "Ensures data atomicity"
+    ],
+    "keywords": ["TCL", "atomicity", "transactions", "savepoint", "commit"],
+    "reference_answer": "COMMIT is used to save all changes made during a transaction to the database permanently. ROLLBACK is used to revert the database to its previous state if an error occurs before a transaction is finished."
+  },
+  {
+    "id": "sql_19",
+    "subject": "SQL",
+    "topic": "Architecture",
+    "difficulty": "Hard",
+    "source": "GeeksforGeeks",
+    "question": "What are Materialized Views and how do they differ from standard Views?",
+    "expected_points": [
+      "Standard View: Virtual, runs query every time accessed",
+      "Materialized View: Physically stores the query result",
+      "Materialized Views must be refreshed to see new data",
+      "Materialized Views are much faster for complex aggregations"
+    ],
+    "keywords": ["materialized", "virtual table", "refresh", "caching", "performance"],
+    "reference_answer": "A standard view is a virtual table that re-runs its query whenever called. A materialized view physically stores the result on disk, offering much faster performance for heavy queries at the cost of needing periodic refreshes."
+  },
+  {
+    "id": "sql_20",
+    "subject": "SQL",
+    "topic": "Data Types",
+    "difficulty": "Easy",
+    "source": "GeeksforGeeks",
+    "question": "What is the difference between CHAR and VARCHAR?",
+    "expected_points": [
+      "CHAR: Fixed length, pads with spaces",
+      "VARCHAR: Variable length, stores only actual characters",
+      "CHAR is faster for fixed-size data (like codes)",
+      "VARCHAR saves disk space for unpredictable lengths"
+    ],
+    "keywords": ["storage", "fixed length", "variable length", "padding", "varchar"],
+    "reference_answer": "CHAR is a fixed-length data type that always uses the specified amount of space, padding with blanks if needed. VARCHAR is variable-length and only uses the space required for the actual string plus a few bytes for length info."
+  },
+  {
+    "id": "dbms_21",
+    "subject": "DBMS",
+    "topic": "Architecture",
+    "difficulty": "Medium",
+    "source": "GeeksforGeeks",
+    "question": "What is the difference between Logical Data Independence and Physical Data Independence?",
+    "expected_points": [
+      "Logical: Ability to change conceptual schema without affecting external views",
+      "Physical: Ability to change physical storage without affecting conceptual schema",
+      "Logical is harder to achieve than Physical",
+      "Maintained through the 3-level architecture mapping"
+    ],
+    "keywords": ["logical", "physical", "independence", "schema", "mapping"],
+    "reference_answer": "Logical Data Independence allows changes to the logical schema (like adding a table) without modifying user views. Physical Data Independence allows changes to the storage structures (like switching from HDD to SSD) without modifying the logical schema."
+  },
+  {
+    "id": "dbms_22",
+    "subject": "DBMS",
+    "topic": "Transactions",
+    "difficulty": "Medium",
+    "source": "GeeksforGeeks",
+    "question": "What is a Transaction? List its states.",
+    "expected_points": [
+      "A logical unit of work in a database",
+      "Active: Initial state during execution",
+      "Partially Committed: After the last statement is executed",
+      "Committed: After successful completion",
+      "Failed/Aborted: After an error or rollback"
+    ],
+    "keywords": ["transaction", "active", "committed", "aborted", "partially committed"],
+    "reference_answer": "A transaction is a single unit of work that accesses and possibly modifies the contents of a database. Its states include Active, Partially Committed, Committed, Failed, and Aborted."
+  },
+  {
+    "id": "dbms_23",
+    "subject": "DBMS",
+    "topic": "Transactions",
+    "difficulty": "Hard",
+    "source": "GeeksforGeeks",
+    "question": "What is Serializability in DBMS?",
+    "expected_points": [
+      "Ensures non-serial schedules behave like serial ones",
+      "Conflict Serializability: Based on order of conflicting operations",
+      "View Serializability: Based on final results and intermediate reads",
+      "Ensures database consistency during concurrent execution"
+    ],
+    "keywords": ["serializability", "conflict", "view", "schedule", "consistency"],
+    "reference_answer": "Serializability is a criterion used to determine if a concurrent schedule is correct. A schedule is serializable if its execution results in the same state as some serial execution of the same transactions."
+  },
+  {
+    "id": "dbms_24",
+    "subject": "DBMS",
+    "topic": "Recovery",
+    "difficulty": "Medium",
+    "source": "GeeksforGeeks",
+    "question": "What is a Checkpoint in DBMS recovery?",
+    "expected_points": [
+      "Point where all logs and data are flushed to disk",
+      "Reduces recovery time after a crash",
+      "The recovery manager only processes logs since the last checkpoint",
+      "Ensures committed data is physically saved"
+    ],
+    "keywords": ["checkpoint", "recovery", "log", "crash", "flush"],
+    "reference_answer": "A checkpoint is a mechanism where all previous logs and modified data are synchronized to the disk. In case of a system crash, the recovery process only needs to examine logs from the last checkpoint forward, significantly saving time."
+  },
+  {
+    "id": "dbms_25",
+    "subject": "DBMS",
+    "topic": "Hashing",
+    "difficulty": "Medium",
+    "source": "GeeksforGeeks",
+    "question": "What is Hashing and the difference between Static and Dynamic Hashing?",
+    "expected_points": [
+      "Directly maps keys to data locations using a function",
+      "Static: Bucket size is fixed; may lead to overflow",
+      "Dynamic: Data buckets grow or shrink based on records",
+      "Prevents linear search in large datasets"
+    ],
+    "keywords": ["hashing", "static", "dynamic", "bucket", "overflow"],
+    "reference_answer": "Hashing uses a mathematical function to map keys to specific addresses. Static hashing has a fixed number of buckets, while Dynamic hashing (like Extendible Hashing) allows the number of buckets to change based on the data load."
+  },
+  {
+    "id": "dbms_26",
+    "subject": "DBMS",
+    "topic": "Properties",
+    "difficulty": "Easy",
+    "source": "GeeksforGeeks",
+    "question": "What is the difference between a Strong Entity and a Weak Entity?",
+    "expected_points": [
+      "Strong: Has its own primary key",
+      "Weak: Depends on a parent/owner entity",
+      "Strong entities represented by a single rectangle",
+      "Weak entities represented by a double rectangle"
+    ],
+    "keywords": ["strong entity", "weak entity", "primary key", "dependency", "discriminator"],
+    "reference_answer": "A strong entity set has a primary key that uniquely identifies its records. A weak entity set does not have a primary key of its own and depends on a strong entity (identifying relationship) for its existence."
+  },
+  {
+    "id": "dbms_27",
+    "subject": "DBMS",
+    "topic": "SQL",
+    "difficulty": "Easy",
+    "source": "GeeksforGeeks",
+    "question": "What is the difference between DDL, DML, and DCL?",
+    "expected_points": [
+      "DDL (Data Definition): CREATE, ALTER, DROP",
+      "DML (Data Manipulation): SELECT, INSERT, UPDATE, DELETE",
+      "DCL (Data Control): GRANT, REVOKE",
+      "TCL (Transaction Control): COMMIT, ROLLBACK"
+    ],
+    "keywords": ["DDL", "DML", "DCL", "TCL", "commands"],
+    "reference_answer": "DDL is used to define the database structure, DML is used to manage the data within that structure, and DCL is used to control access and permissions to the database."
+  },
+  {
+    "id": "dbms_28",
+    "subject": "DBMS",
+    "topic": "Storage",
+    "difficulty": "Hard",
+    "source": "GeeksforGeeks",
+    "question": "Explain B-Trees and B+ Trees in the context of indexing.",
+    "expected_points": [
+      "B-Tree: Stores keys and data in internal and leaf nodes",
+      "B+ Tree: All data is stored in leaf nodes; linked list for range queries",
+      "B+ Trees are preferred for disk storage",
+      "Provide balanced height for predictable search time"
+    ],
+    "keywords": ["B-Tree", "B+ Tree", "indexing", "leaf nodes", "range query"],
+    "reference_answer": "B-Trees store data pointers in all nodes, whereas B+ Trees store all actual data pointers in the leaf nodes. B+ Trees are more efficient for range queries because the leaves are linked together."
+  },
+  {
+    "id": "dbms_29",
+    "subject": "DBMS",
+    "topic": "Normalization",
+    "difficulty": "Hard",
+    "source": "GeeksforGeeks",
+    "question": "What is BCNF (Boyce-Codd Normal Form)?",
+    "expected_points": [
+      "Advanced version of 3NF",
+      "Rule: For every dependency X -> Y, X must be a super key",
+      "Eliminates anomalies missed by 3NF",
+      "Stricter than 3NF"
+    ],
+    "keywords": ["BCNF", "3NF", "super key", "determinant", "dependency"],
+    "reference_answer": "BCNF is a stricter version of 3NF. A table is in BCNF if for every non-trivial functional dependency X -> Y, X is a super key of the table."
+  },
+  {
+    "id": "dbms_30",
+    "subject": "DBMS",
+    "topic": "SQL",
+    "difficulty": "Medium",
+    "source": "GeeksforGeeks",
+    "question": "What is the difference between a Unique Key and a Primary Key?",
+    "expected_points": [
+      "Both ensure unique values",
+      "Primary Key: Only one per table; Cannot be NULL",
+      "Unique Key: Multiple allowed; Can contain one NULL value",
+      "Primary Key creates a clustered index by default"
+    ],
+    "keywords": ["unique key", "primary key", "null", "clustered index"],
+    "reference_answer": "A table can have only one Primary Key, which cannot accept NULLs. A table can have multiple Unique Keys, and in many systems, a Unique Key allows a single NULL value."
+  }
+
+]
+

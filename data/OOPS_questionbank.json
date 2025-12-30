@@ -1,0 +1,483 @@
+[
+  {
+    "id": "oops_01",
+    "subject": "OOPS",
+    "topic": "Basics",
+    "difficulty": "Easy",
+    "source": "GeeksforGeeks",
+    "question": "What is Object-Oriented Programming (OOP)?",
+    "expected_points": [
+      "Programming paradigm based on objects",
+      "Focuses on data rather than logic",
+      "Uses classes as blueprints",
+      "Includes pillars: Encapsulation, Abstraction, Inheritance, Polymorphism"
+    ],
+    "keywords": ["paradigm", "objects", "classes", "data-centric", "pillars"],
+    "reference_answer": "OOP is a programming paradigm that revolves around 'objects' rather than functions and logic. It aims to implement real-world entities like inheritance, hiding, and polymorphism in programming to make code reusable and easier to maintain."
+  },
+  {
+    "id": "oops_02",
+    "subject": "OOPS",
+    "topic": "Basics",
+    "difficulty": "Easy",
+    "source": "GeeksforGeeks",
+    "question": "What is the difference between a Class and an Object?",
+    "expected_points": [
+      "Class is a blueprint; Object is an instance",
+      "Class is a logical entity; Object is a physical entity",
+      "Class doesn't occupy memory; Object does",
+      "One class can create multiple objects"
+    ],
+    "keywords": ["blueprint", "instance", "memory", "logical", "physical"],
+    "reference_answer": "A Class is a user-defined template or blueprint that defines the variables and methods common to all objects of a certain kind. An Object is a specific instance of a class that has its own state and behavior and occupies memory space."
+  },
+  {
+    "id": "oops_03",
+    "subject": "OOPS",
+    "topic": "Encapsulation",
+    "difficulty": "Medium",
+    "source": "GeeksforGeeks",
+    "question": "What is Encapsulation?",
+    "expected_points": [
+      "Binding data and methods together",
+      "Hiding internal details using access modifiers",
+      "Achieved using private variables and public getters/setters",
+      "Increases data security and control"
+    ],
+    "keywords": ["binding", "wrapping", "data hiding", "access modifiers", "private"],
+    "reference_answer": "Encapsulation is the mechanism of wrapping data (variables) and code (methods) together as a single unit. It restricts direct access to data from outside the class, which is known as data hiding, usually implemented with private fields and public methods."
+  },
+  {
+    "id": "oops_04",
+    "subject": "OOPS",
+    "topic": "Abstraction",
+    "difficulty": "Medium",
+    "source": "GeeksforGeeks",
+    "question": "What is Abstraction and how is it achieved?",
+    "expected_points": [
+      "Hiding complex implementation details",
+      "Showing only essential features to the user",
+      "Achieved using Abstract Classes",
+      "Achieved using Interfaces"
+    ],
+    "keywords": ["hiding details", "essential features", "abstract class", "interface"],
+    "reference_answer": "Abstraction is the process of hiding internal implementation details and showing only the necessary functionality to the user. In languages like Java or C++, it is achieved using abstract classes and interfaces."
+  },
+  {
+    "id": "oops_05",
+    "subject": "OOPS",
+    "topic": "Inheritance",
+    "difficulty": "Medium",
+    "source": "GeeksforGeeks",
+    "question": "What is Inheritance and its types?",
+    "expected_points": [
+      "One class acquiring properties of another",
+      "Promotes code reusability",
+      "Types: Single, Multiple, Multilevel, Hierarchical, Hybrid",
+      "Uses 'is-a' relationship"
+    ],
+    "keywords": ["reusability", "base class", "derived class", "is-a relationship"],
+    "reference_answer": "Inheritance allows a new class (subclass/child) to inherit the attributes and methods of an existing class (superclass/parent). This promotes reusability. Common types include Single, Multilevel, and Hierarchical inheritance."
+  },
+  {
+    "id": "oops_06",
+    "subject": "OOPS",
+    "topic": "Polymorphism",
+    "difficulty": "Medium",
+    "source": "GeeksforGeeks",
+    "question": "What is Polymorphism and its types?",
+    "expected_points": [
+      "Ability of a message to be displayed in more than one form",
+      "Compile-time: Method Overloading",
+      "Runtime: Method Overriding",
+      "Allows objects of different types to be treated as a common type"
+    ],
+    "keywords": ["many forms", "overloading", "overriding", "compile-time", "runtime"],
+    "reference_answer": "Polymorphism means 'many forms'. It allows one interface to be used for a general class of actions. Compile-time polymorphism is achieved through overloading, while Runtime polymorphism is achieved through overriding."
+  },
+  {
+    "id": "oops_07",
+    "subject": "OOPS",
+    "topic": "Methods",
+    "difficulty": "Easy",
+    "source": "GeeksforGeeks",
+    "question": "What is a Constructor?",
+    "expected_points": [
+      "Special method used to initialize objects",
+      "Called automatically when an object is created",
+      "Has the same name as the class",
+      "Does not have a return type"
+    ],
+    "keywords": ["initialize", "automatic", "same name", "no return type"],
+    "reference_answer": "A constructor is a special member function of a class that initializes an object of that class. It is automatically invoked when an instance is created and usually has the same name as the class itself."
+  },
+  {
+    "id": "oops_08",
+    "subject": "OOPS",
+    "topic": "Methods",
+    "difficulty": "Medium",
+    "source": "GeeksforGeeks",
+    "question": "What is the difference between Method Overloading and Overriding?",
+    "expected_points": [
+      "Overloading: Same name, different parameters in same class",
+      "Overriding: Same name and parameters in child class",
+      "Overloading is Compile-time; Overriding is Runtime",
+      "Overriding requires inheritance"
+    ],
+    "keywords": ["parameters", "compile-time", "runtime", "inheritance", "binding"],
+    "reference_answer": "Method Overloading happens when multiple methods have the same name but different signatures within the same class. Method Overriding occurs when a child class provides a specific implementation for a method already defined in its parent class."
+  },
+  {
+    "id": "oops_09",
+    "subject": "OOPS",
+    "topic": "Basics",
+    "difficulty": "Hard",
+    "source": "GeeksforGeeks",
+    "question": "What is an Interface in OOPS?",
+    "expected_points": [
+      "Blueprint of a class containing only abstract methods",
+      "Used to achieve 100% abstraction",
+      "Supports Multiple Inheritance",
+      "Methods are typically public and abstract by default"
+    ],
+    "keywords": ["blueprint", "total abstraction", "multiple inheritance", "contract"],
+    "reference_answer": "An interface is a completely abstract class that only contains the declarations of methods without their implementations. It is used to achieve total abstraction and allows a class to implement multiple interfaces, bypassing multiple inheritance limitations in some languages."
+  },
+  {
+    "id": "oops_10",
+    "subject": "OOPS",
+    "topic": "Basics",
+    "difficulty": "Medium",
+    "source": "GeeksforGeeks",
+    "question": "What is an Abstract Class?",
+    "expected_points": [
+      "Class declared with 'abstract' keyword",
+      "Cannot be instantiated",
+      "Can contain both abstract and concrete methods",
+      "Acts as a base for other classes"
+    ],
+    "keywords": ["abstract keyword", "instantiation", "concrete methods", "base class"],
+    "reference_answer": "An abstract class is a class that cannot be instantiated on its own and may contain one or more abstract methods. It is intended to be inherited by concrete subclasses that provide implementations for the abstract methods."
+  },
+  {
+    "id": "oops_11",
+    "subject": "OOPS",
+    "topic": "Keywords",
+    "difficulty": "Medium",
+    "source": "GeeksforGeeks",
+    "question": "What is the purpose of the 'static' keyword?",
+    "expected_points": [
+      "Belongs to the class rather than instances",
+      "Shared among all objects of the class",
+      "Can be used with variables, methods, and blocks",
+      "Saves memory as it is allocated only once"
+    ],
+    "keywords": ["class-level", "shared memory", "static method", "static variable"],
+    "reference_answer": "The 'static' keyword indicates that a particular member (variable or method) belongs to the class itself rather than to individual instances. Only one copy of a static member exists in memory, which is shared by all objects of that class."
+  },
+  {
+    "id": "oops_12",
+    "subject": "OOPS",
+    "topic": "Keywords",
+    "difficulty": "Medium",
+    "source": "GeeksforGeeks",
+    "question": "What is the 'super' keyword and when is it used?",
+    "expected_points": [
+      "Used to refer to immediate parent class objects",
+      "Invokes parent class constructors",
+      "Accesses parent class methods that are overridden",
+      "Accesses parent class variables hidden by subclasses"
+    ],
+    "keywords": ["parent class", "base class", "constructor call", "method overriding"],
+    "reference_answer": "'super' is a reference variable used to refer to immediate parent class objects. It is commonly used to invoke parent class constructors, call overridden methods, or access hidden fields in the parent class."
+  },
+  {
+    "id": "oops_13",
+    "subject": "OOPS",
+    "topic": "Keywords",
+    "difficulty": "Medium",
+    "source": "GeeksforGeeks",
+    "question": "What is the 'final' keyword used for?",
+    "expected_points": [
+      "Final Variable: Value cannot be changed (constant)",
+      "Final Method: Cannot be overridden",
+      "Final Class: Cannot be inherited",
+      "Ensures security and performance optimization"
+    ],
+    "keywords": ["constant", "prevent overriding", "prevent inheritance", "immutability"],
+    "reference_answer": "The 'final' keyword is used to apply restrictions. A final variable becomes a constant, a final method cannot be overridden by subclasses, and a final class cannot be extended through inheritance."
+  },
+  {
+    "id": "oops_14",
+    "subject": "OOPS",
+    "topic": "Memory Management",
+    "difficulty": "Medium",
+    "source": "GeeksforGeeks",
+    "question": "What is Garbage Collection in OOPS?",
+    "expected_points": [
+      "Automatic memory management process",
+      "Reclaims memory occupied by unreachable objects",
+      "Prevents memory leaks",
+      "Runs on the heap area"
+    ],
+    "keywords": ["automatic", "memory reclamation", "heap", "unreachable objects"],
+    "reference_answer": "Garbage Collection is an automatic process in languages like Java or C# where the system identifies and deletes objects that are no longer reachable or used by the program, thereby freeing up memory in the heap."
+  },
+  {
+    "id": "oops_15",
+    "subject": "OOPS",
+    "topic": "Memory Management",
+    "difficulty": "Hard",
+    "source": "GeeksforGeeks",
+    "question": "Explain the difference between Stack and Heap memory.",
+    "expected_points": [
+      "Stack: Stores local variables and function calls",
+      "Heap: Stores objects and global variables",
+      "Stack: Faster access, smaller size",
+      "Heap: Slower access, larger size, managed by GC"
+    ],
+    "keywords": ["stack", "heap", "local variables", "dynamic allocation", "garbage collection"],
+    "reference_answer": "Stack memory is used for static memory allocation and execution of a thread; it stores local variables and follows LIFO. Heap memory is used for dynamic memory allocation where objects are stored and is managed by the Garbage Collector."
+  },
+  {
+    "id": "oops_16",
+    "subject": "OOPS",
+    "topic": "Basics",
+    "difficulty": "Medium",
+    "source": "GeeksforGeeks",
+    "question": "What is the 'this' keyword?",
+    "expected_points": [
+      "Refers to the current class instance",
+      "Differentiates between local and instance variables",
+      "Used to call current class constructors",
+      "Can be passed as an argument in methods"
+    ],
+    "keywords": ["current instance", "shadowing", "constructor chaining", "reference"],
+    "reference_answer": "'this' is a reference keyword that refers to the current object. It is most commonly used to eliminate confusion between class attributes and parameters with the same name."
+  },
+  {
+    "id": "oops_17",
+    "subject": "OOPS",
+    "topic": "Basics",
+    "difficulty": "Medium",
+    "source": "GeeksforGeeks",
+    "question": "What is an Access Modifier?",
+    "expected_points": [
+      "Defines the scope/visibility of classes and members",
+      "Private: Visible only within the class",
+      "Public: Visible everywhere",
+      "Protected: Visible in same package and subclasses"
+    ],
+    "keywords": ["visibility", "scope", "private", "public", "protected", "default"],
+    "reference_answer": "Access modifiers are keywords that set the accessibility of classes, methods, and variables. Common ones include Private (most restrictive), Public (least restrictive), and Protected (accessible to subclasses)."
+  },
+  {
+    "id": "oops_18",
+    "subject": "OOPS",
+    "topic": "Methods",
+    "difficulty": "Hard",
+    "source": "GeeksforGeeks",
+    "question": "What is a Destructor?",
+    "expected_points": [
+      "Method called when an object is destroyed",
+      "Used to release resources (file handles, network connections)",
+      "Named with a tilde (~) in C++",
+      "Not explicitly needed in GC-based languages like Java"
+    ],
+    "keywords": ["cleanup", "memory release", "tilde", "resource management"],
+    "reference_answer": "A destructor is a special member function that is automatically called when an object goes out of scope or is explicitly deleted. Its primary purpose is to release resources held by the object before its memory is reclaimed."
+  },
+  {
+    "id": "oops_19",
+    "subject": "OOPS",
+    "topic": "Basics",
+    "difficulty": "Hard",
+    "source": "GeeksforGeeks",
+    "question": "What is the 'Finalize' method?",
+    "expected_points": [
+      "Called by the Garbage Collector before an object is destroyed",
+      "Used for cleanup activities before memory reclamation",
+      "Found in Java (deprecated in newer versions)",
+      "Does not guarantee immediate execution"
+    ],
+    "keywords": ["cleanup", "garbage collector", "pre-destruction", "deprecated"],
+    "reference_answer": "The finalize() method is a protected method defined in the Object class. It is invoked by the Garbage Collector on an object when it determines there are no more references to the object, allowing for final cleanup."
+  },
+  {
+    "id": "oops_20",
+    "subject": "OOPS",
+    "topic": "Basics",
+    "difficulty": "Medium",
+    "source": "GeeksforGeeks",
+    "question": "What is the difference between a Shallow Copy and a Deep Copy?",
+    "expected_points": [
+      "Shallow Copy: Copies references to existing objects",
+      "Deep Copy: Creates new instances of all nested objects",
+      "Shallow: Faster but changes affect both copies",
+      "Deep: Slower but creates independent clones"
+    ],
+    "keywords": ["cloning", "references", "independent object", "memory pointers"],
+    "reference_answer": "A shallow copy creates a new object but inserts references to the original nested objects. A deep copy creates a new object and recursively creates new instances of all nested objects, making the two entirely independent."
+  },
+  {
+    "id": "oops_21",
+    "subject": "OOPS",
+    "topic": "Architecture",
+    "difficulty": "Hard",
+    "source": "GeeksforGeeks",
+    "question": "What is the difference between an Abstract Class and an Interface?",
+    "expected_points": [
+      "Abstract classes can have constructors; Interfaces cannot",
+      "Abstract classes support all access modifiers; Interfaces are implicitly public",
+      "A class can implement multiple interfaces but only extend one abstract class",
+      "Abstract classes can have member variables; Interfaces only have constants"
+    ],
+    "keywords": ["constructor", "multiple inheritance", "access modifiers", "implementation"],
+    "reference_answer": "An abstract class allows you to create functionality that subclasses can implement or override, while an interface only defines a contract. Abstract classes can have state (fields) and constructors, whereas interfaces are purely for defining behavior that multiple unrelated classes can share."
+  },
+  {
+    "id": "oops_22",
+    "subject": "OOPS",
+    "topic": "Classes",
+    "difficulty": "Medium",
+    "source": "GeeksforGeeks",
+    "question": "What is a Virtual Function?",
+    "expected_points": [
+      "A function in a base class that can be overridden in a derived class",
+      "Used to achieve Runtime Polymorphism",
+      "In C++, declared using the 'virtual' keyword",
+      "Enables dynamic binding"
+    ],
+    "keywords": ["overriding", "dynamic binding", "runtime polymorphism", "base class"],
+    "reference_answer": "A virtual function is a member function in a base class that you expect to redefine in derived classes. When you refer to a derived class object using a pointer to the base class, you can call a virtual function for that object and execute the derived class's version of the function."
+  },
+  {
+    "id": "oops_23",
+    "subject": "OOPS",
+    "topic": "Classes",
+    "difficulty": "Hard",
+    "source": "GeeksforGeeks",
+    "question": "What is a Pure Virtual Function and an Abstract Class?",
+    "expected_points": [
+      "Function with no implementation (declared with = 0 in C++)",
+      "Forces derived classes to provide an implementation",
+      "Any class with at least one pure virtual function becomes abstract",
+      "Abstract classes cannot be instantiated"
+    ],
+    "keywords": ["pure virtual", "instantiation", "implementation", "contract"],
+    "reference_answer": "A pure virtual function is a function that has no body in the base class. It acts as a placeholder that must be implemented by any non-abstract derived class. A class containing such a function is an 'Abstract Class' and cannot be used to create objects directly."
+  },
+  {
+    "id": "oops_24",
+    "subject": "OOPS",
+    "topic": "Methods",
+    "difficulty": "Medium",
+    "source": "GeeksforGeeks",
+    "question": "What is a Copy Constructor?",
+    "expected_points": [
+      "Member function that initializes an object using another object of the same class",
+      "Used for Shallow or Deep copying",
+      "Takes a reference to an object of the same class as an argument",
+      "Called when an object is passed by value"
+    ],
+    "keywords": ["initialization", "reference", "shallow copy", "deep copy"],
+    "reference_answer": "A copy constructor is a special constructor used to create a new object as a copy of an existing object. It is essential when a class manages dynamic memory to ensure that each object has its own separate copy of the resources (Deep Copy)."
+  },
+  {
+    "id": "oops_25",
+    "subject": "OOPS",
+    "topic": "Keywords",
+    "difficulty": "Medium",
+    "source": "GeeksforGeeks",
+    "question": "What is the difference between 'this' pointer and 'super' (or base)?",
+    "expected_points": [
+      "this refers to the current object instance",
+      "super/base refers to the immediate parent class",
+      "this is used to resolve naming conflicts with parameters",
+      "super is used to call parent constructors or overridden methods"
+    ],
+    "keywords": ["current instance", "parent instance", "reference", "naming conflict"],
+    "reference_answer": "'this' is a constant pointer that holds the address of the current object, allowing it to access its own members. 'super' (or 'base' in C#) is a keyword used to access members of the parent class, often to reuse logic from a parent method that has been overridden."
+  },
+  {
+    "id": "oops_26",
+    "subject": "OOPS",
+    "topic": "Inheritance",
+    "difficulty": "Hard",
+    "source": "GeeksforGeeks",
+    "question": "Explain Hybrid Inheritance and the Diamond Problem.",
+    "expected_points": [
+      "Combination of more than one type of inheritance",
+      "Diamond Problem occurs when a class inherits from two classes that share a common base",
+      "Leads to ambiguity in method resolution",
+      "Resolved using Virtual Inheritance (C++) or Interfaces (Java)"
+    ],
+    "keywords": ["ambiguity", "virtual inheritance", "multiple paths", "diamond"],
+    "reference_answer": "Hybrid inheritance is a mix of multiple and hierarchical inheritance. The 'Diamond Problem' is a specific issue where a child class can access a base class through multiple paths, causing the compiler to get confused about which version of a method or variable to use."
+  },
+  {
+    "id": "oops_27",
+    "subject": "OOPS",
+    "topic": "Basics",
+    "difficulty": "Easy",
+    "source": "GeeksforGeeks",
+    "question": "What is a Friend Function?",
+    "expected_points": [
+      "Function that is not a member but can access private/protected members",
+      "Declared inside the class with the 'friend' keyword",
+      "Does not have a 'this' pointer",
+      "Can be a global function or a member of another class"
+    ],
+    "keywords": ["access control", "private members", "friend keyword", "non-member"],
+    "reference_answer": "A friend function is a function that is granted special permission to access the private and protected parts of a class, even though it is not a member of that class. It is useful for operator overloading or bridging two different classes."
+  },
+  {
+    "id": "oops_28",
+    "subject": "OOPS",
+    "topic": "Memory",
+    "difficulty": "Medium",
+    "source": "GeeksforGeeks",
+    "question": "What is the difference between a Structure and a Class?",
+    "expected_points": [
+      "Structures have default public access; Classes have default private access",
+      "Classes support inheritance; Structures (in some languages) do not",
+      "Classes are for complex objects; Structures are for data bundling",
+      "Classes are usually reference types; Structures are value types"
+    ],
+    "keywords": ["access specifier", "value type", "reference type", "data member"],
+    "reference_answer": "The primary technical difference in languages like C++ is the default access level: public for structs and private for classes. Conceptually, structs are often used for simple data containers, while classes are used for full-featured objects with encapsulation and inheritance."
+  },
+  {
+    "id": "oops_29",
+    "subject": "OOPS",
+    "topic": "Methods",
+    "difficulty": "Medium",
+    "source": "GeeksforGeeks",
+    "question": "What is an Inline Function?",
+    "expected_points": [
+      "Function where the compiler replaces the call with the actual code",
+      "Reduces function call overhead",
+      "Suggested using the 'inline' keyword",
+      "Best for small, frequently called functions"
+    ],
+    "keywords": ["overhead", "compiler optimization", "execution speed", "macro"],
+    "reference_answer": "An inline function is a request to the compiler to insert the complete body of the function in every place that the function is called, rather than jumping to a specific memory location. This saves time but can increase the size of the final executable if overused."
+  },
+  {
+    "id": "oops_30",
+    "subject": "OOPS",
+    "topic": "Design",
+    "difficulty": "Hard",
+    "source": "GeeksforGeeks",
+    "question": "What is the 'Static Binding' vs 'Dynamic Binding'?",
+    "expected_points": [
+      "Static Binding occurs at compile-time (Method Overloading)",
+      "Dynamic Binding occurs at runtime (Method Overriding)",
+      "Static binding is faster; Dynamic binding is more flexible",
+      "Dynamic binding requires virtual functions"
+    ],
+    "keywords": ["compile-time", "runtime", "overloading", "overriding", "flexibility"],
+    "reference_answer": "Binding refers to the link between a function call and the actual code. Static binding happens when the compiler can determine the function to call during compilation. Dynamic binding waits until the program is running to determine the call based on the actual type of the object."
+  }
+
+]

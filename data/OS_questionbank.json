@@ -1,0 +1,804 @@
+[
+  {
+    "id": "os_01",
+    "subject": "OS",
+    "topic": "Basics",
+    "difficulty": "Easy",
+    "source": "GeeksforGeeks",
+    "question": "What is an Operating System and its main purpose?",
+    "expected_points": [
+      "Software that acts as an interface between user and hardware",
+      "Manages computer hardware and software resources",
+      "Provides a platform for application programs to run",
+      "Handles memory, process, and file management"
+    ],
+    "keywords": ["interface", "resource management", "hardware", "software"],
+    "reference_answer": "An Operating System (OS) is a system software that manages computer hardware, software resources, and provides common services for computer programs. Its main purpose is to provide an environment in which a user can execute programs conveniently and efficiently."
+  },
+  {
+    "id": "os_02",
+    "subject": "OS",
+    "topic": "Kernel",
+    "difficulty": "Medium",
+    "source": "GeeksforGeeks",
+    "question": "What is a Kernel and what are its types?",
+    "expected_points": [
+      "Core component of an OS",
+      "Manages communication between hardware and software",
+      "Monolithic Kernel: Entire OS in kernel space",
+      "Microkernel: Minimalist approach, services run in user space"
+    ],
+    "keywords": ["core", "monolithic", "microkernel", "abstraction"],
+    "reference_answer": "The Kernel is the central module of an OS that manages system resources and the communication between hardware and software components. The two main types are Monolithic (all services in one block) and Microkernel (only essential services in the kernel)."
+  },
+  {
+    "id": "os_03",
+    "subject": "OS",
+    "topic": "Process Management",
+    "difficulty": "Medium",
+    "source": "GeeksforGeeks",
+    "question": "What is a Process and what are its different states?",
+    "expected_points": [
+      "A program in execution",
+      "States: New, Ready, Running, Waiting, Terminated",
+      "PCB (Process Control Block) stores process info",
+      "Context switching moves process between states"
+    ],
+    "keywords": ["execution", "PCB", "ready", "running", "waiting"],
+    "reference_answer": "A process is a program in execution. Its lifecycle involves several states: New (being created), Ready (waiting for CPU), Running (instructions being executed), Waiting (waiting for an event), and Terminated (finished execution)."
+  },
+  {
+    "id": "os_04",
+    "subject": "OS",
+    "topic": "Memory Management",
+    "difficulty": "Hard",
+    "source": "GeeksforGeeks",
+    "question": "Explain Paging and why it is used.",
+    "expected_points": [
+      "Non-contiguous memory allocation scheme",
+      "Divides physical memory into frames and logical memory into pages",
+      "Eliminates external fragmentation",
+      "Uses a Page Table for address translation"
+    ],
+    "keywords": ["logical memory", "physical memory", "fragmentation", "page table"],
+    "reference_answer": "Paging is a memory management scheme that eliminates the need for contiguous allocation of physical memory. It avoids external fragmentation by dividing physical memory into fixed-size blocks called frames and logical memory into blocks called pages."
+  },
+  {
+    "id": "os_05",
+    "subject": "OS",
+    "topic": "Memory Management",
+    "difficulty": "Hard",
+    "source": "GeeksforGeeks",
+    "question": "What is Virtual Memory?",
+    "expected_points": [
+      "Technique that allows execution of processes larger than physical memory",
+      "Uses Disk space as an extension of RAM",
+      "Implemented using Demand Paging",
+      "Separates user logical memory from physical memory"
+    ],
+    "keywords": ["RAM extension", "demand paging", "logical memory", "swap space"],
+    "reference_answer": "Virtual Memory is a storage allocation scheme in which secondary memory can be addressed as though it were part of the main memory. It allows the execution of processes that are not entirely in main memory, implemented via demand paging."
+  },
+  {
+    "id": "os_06",
+    "subject": "OS",
+    "topic": "Deadlocks",
+    "difficulty": "Medium",
+    "source": "GeeksforGeeks",
+    "question": "What are the four necessary conditions for a Deadlock?",
+    "expected_points": [
+      "Mutual Exclusion: Resource held by one process at a time",
+      "Hold and Wait: Process holding a resource waits for another",
+      "No Preemption: Resource cannot be forcibly taken",
+      "Circular Wait: Set of processes waiting in a circular chain"
+    ],
+    "keywords": ["mutual exclusion", "hold and wait", "preemption", "circular wait"],
+    "reference_answer": "A deadlock occurs if these four conditions hold simultaneously: Mutual Exclusion, Hold and Wait, No Preemption, and Circular Wait. If any one of these is prevented, deadlocks can be avoided."
+  },
+  {
+    "id": "os_07",
+    "subject": "OS",
+    "topic": "Process Management",
+    "difficulty": "Medium",
+    "source": "GeeksforGeeks",
+    "question": "What is a Thread and how does it differ from a Process?",
+    "expected_points": [
+      "Lightweight process",
+      "Threads of same process share memory and resources",
+      "Process has its own address space; Threads do not",
+      "Context switching is faster in threads"
+    ],
+    "keywords": ["lightweight", "resource sharing", "address space", "multithreading"],
+    "reference_answer": "A thread is a path of execution within a process. While a process is an independent execution unit with its own resources, multiple threads within the same process share the same code, data, and system resources, making them faster to create and switch."
+  },
+  {
+    "id": "os_08",
+    "subject": "OS",
+    "topic": "Scheduling",
+    "difficulty": "Medium",
+    "source": "GeeksforGeeks",
+    "question": "Explain the difference between Preemptive and Non-Preemptive Scheduling.",
+    "expected_points": [
+      "Preemptive: CPU can be taken from a running process",
+      "Non-Preemptive: Process keeps CPU until it finishes or waits",
+      "Preemptive is more flexible and supports priorities",
+      "Non-Preemptive is simpler but can cause 'starvation'"
+    ],
+    "keywords": ["CPU interrupt", "priority", "starvation", "context switch"],
+    "reference_answer": "In Preemptive scheduling, the OS can interrupt a running process to allocate the CPU to another (e.g., higher priority). In Non-Preemptive, once a process starts running, it cannot be interrupted until it completes its burst time or enters a waiting state."
+  },
+  {
+    "id": "os_09",
+    "subject": "OS",
+    "topic": "Process Management",
+    "difficulty": "Hard",
+    "source": "GeeksforGeeks",
+    "question": "What is a Critical Section and the Race Condition?",
+    "expected_points": [
+      "Critical Section: Part of code where shared resources are accessed",
+      "Race Condition: Final outcome depends on the order of execution",
+      "Requires Mutual Exclusion, Progress, and Bounded Waiting",
+      "Solved using Semaphores or Mutex"
+    ],
+    "keywords": ["shared resource", "concurrency", "mutex", "semaphore"],
+    "reference_answer": "A Critical Section is a segment of code where shared resources are accessed. A Race Condition occurs when multiple processes access and manipulate the same data concurrently, and the outcome depends on the particular order of access."
+  },
+  {
+    "id": "os_10",
+    "subject": "OS",
+    "topic": "Memory Management",
+    "difficulty": "Medium",
+    "source": "GeeksforGeeks",
+    "question": "What is Thrashing?",
+    "expected_points": [
+      "High paging activity where system spends more time swapping than executing",
+      "Occurs when total size of active pages exceeds RAM",
+      "Drastically reduces CPU utilization",
+      "Solved by reducing degree of multiprogramming"
+    ],
+    "keywords": ["swapping", "page fault", "CPU utilization", "multiprogramming"],
+    "reference_answer": "Thrashing is a state where the system spends more time processing page faults (swapping pages in and out) than executing actual instructions. It occurs when the OS tries to maintain too many processes in memory simultaneously."
+  },
+  {
+    "id": "os_11",
+    "subject": "OS",
+    "topic": "Process Management",
+    "difficulty": "Medium",
+    "source": "GeeksforGeeks",
+    "question": "What is the difference between a System Call and a User-defined Function?",
+    "expected_points": [
+      "System Call is an interface to OS services; User function is part of the application",
+      "System Call executes in Kernel Mode; User function in User Mode",
+      "System Calls handle hardware interactions; User functions handle logic",
+      "System Calls have higher overhead due to context switching"
+    ],
+    "keywords": ["kernel mode", "user mode", "interface", "context switch"],
+    "reference_answer": "A system call is a programmatic way in which a computer program requests a service from the kernel of the operating system. Unlike user-defined functions which run in user space, system calls involve a transition to kernel mode to perform privileged operations like disk access or process creation."
+  },
+  {
+    "id": "os_12",
+    "subject": "OS",
+    "topic": "Synchronization",
+    "difficulty": "Hard",
+    "source": "GeeksforGeeks",
+    "question": "What is a Semaphore? Explain its types.",
+    "expected_points": [
+      "Integer variable used for signaling among processes",
+      "Binary Semaphore: Ranges between 0 and 1 (similar to Mutex)",
+      "Counting Semaphore: Ranges over an unrestricted domain",
+      "Wait() and Signal() are the two atomic operations"
+    ],
+    "keywords": ["signaling", "binary semaphore", "counting semaphore", "atomic"],
+    "reference_answer": "A semaphore is a synchronization tool used to manage concurrent processes. It is an integer variable accessed through two atomic operations: wait() (decrements) and signal() (increments). Binary semaphores act as locks, while counting semaphores manage multiple instances of a resource."
+  },
+  {
+    "id": "os_13",
+    "subject": "OS",
+    "topic": "Scheduling",
+    "difficulty": "Medium",
+    "source": "GeeksforGeeks",
+    "question": "What is Belady’s Anomaly?",
+    "expected_points": [
+      "Phenomenon where page fault rate increases as more frames are added",
+      "Specific to FIFO (First-In-First-Out) page replacement algorithm",
+      "Contradicts the intuition that more memory should mean fewer faults",
+      "Does not occur in stack-based algorithms like LRU"
+    ],
+    "keywords": ["FIFO", "page faults", "frames", "anomaly"],
+    "reference_answer": "Belady’s Anomaly is a phenomenon where increasing the number of page frames results in an increase in the number of page faults for certain memory access patterns. This is primarily observed in the FIFO page replacement algorithm."
+  },
+  {
+    "id": "os_14",
+    "subject": "OS",
+    "topic": "Disk Management",
+    "difficulty": "Medium",
+    "source": "GeeksforGeeks",
+    "question": "What is RAID and mention its common levels?",
+    "expected_points": [
+      "Redundant Array of Independent Disks",
+      "Used for data redundancy and performance improvement",
+      "RAID 0: Striping (Performance)",
+      "RAID 1: Mirroring (Redundancy)",
+      "RAID 5: Distributed Parity"
+    ],
+    "keywords": ["redundancy", "striping", "mirroring", "parity"],
+    "reference_answer": "RAID is a technology that combines multiple physical disk drive components into a single logical unit for data redundancy, performance improvement, or both. Common levels include RAID 0 (striping), RAID 1 (mirroring), and RAID 5 (parity-based error correction)."
+  },
+  {
+    "id": "os_15",
+    "subject": "OS",
+    "topic": "Process Management",
+    "difficulty": "Medium",
+    "source": "GeeksforGeeks",
+    "question": "What is the difference between a Short-term, Medium-term, and Long-term Scheduler?",
+    "expected_points": [
+      "Long-term (Job): Selects processes from pool to bring to 'Ready' queue",
+      "Short-term (CPU): Selects 'Ready' process to execute next",
+      "Medium-term: Swaps processes in and out of memory (Virtual Memory)",
+      "Long-term controls degree of multiprogramming"
+    ],
+    "keywords": ["job scheduler", "cpu scheduler", "swapping", "multiprogramming"],
+    "reference_answer": "The long-term scheduler decides which jobs are admitted to the system for processing. The short-term scheduler selects the process to be executed next by the CPU. The medium-term scheduler handles swapping processes between RAM and disk to manage memory effectively."
+  },
+  {
+    "id": "os_16",
+    "subject": "OS",
+    "topic": "Deadlocks",
+    "difficulty": "Hard",
+    "source": "GeeksforGeeks",
+    "question": "Explain the Banker's Algorithm.",
+    "expected_points": [
+      "Deadlock avoidance algorithm",
+      "Tests for safety by simulating resource allocation",
+      "Uses Max, Available, Allocation, and Need matrices",
+      "Allocates resources only if it leaves the system in a 'Safe State'"
+    ],
+    "keywords": ["avoidance", "safe state", "allocation matrix", "need matrix"],
+    "reference_answer": "Banker’s algorithm is a resource allocation and deadlock avoidance algorithm that tests for safety by simulating the allocation for predetermined maximum possible amounts of all resources, then makes an 's-state' check to test for possible activities, before deciding whether allocation should be allowed to continue."
+  },
+  {
+    "id": "os_17",
+    "subject": "OS",
+    "topic": "Memory Management",
+    "difficulty": "Easy",
+    "source": "GeeksforGeeks",
+    "question": "What is the difference between Internal and External Fragmentation?",
+    "expected_points": [
+      "Internal: Wasted space inside an allocated memory block",
+      "External: Wasted space between allocated blocks (total is enough, but not contiguous)",
+      "Internal occurs in fixed-partitioning",
+      "External occurs in dynamic-partitioning"
+    ],
+    "keywords": ["fixed partitioning", "dynamic partitioning", "contiguous", "wasted space"],
+    "reference_answer": "Internal fragmentation happens when a process is allocated more memory than it needs, leaving a hole inside the block. External fragmentation happens when there is enough total free memory to satisfy a request, but the memory is not contiguous."
+  },
+  {
+    "id": "os_18",
+    "subject": "OS",
+    "topic": "File Systems",
+    "difficulty": "Medium",
+    "source": "GeeksforGeeks",
+    "question": "What is an Inode in a file system?",
+    "expected_points": [
+      "Data structure on a Unix-style file system",
+      "Stores metadata about a file (size, owner, permissions)",
+      "Does not store the file name or actual data",
+      "Contains pointers to the disk blocks where data is stored"
+    ],
+    "keywords": ["metadata", "unix", "pointers", "file descriptor"],
+    "reference_answer": "An Inode (index node) is a data structure in a Unix-style file system that describes a file-system object such as a file or a directory. It stores all information about the file except its name and actual content, acting as a map to the disk blocks."
+  },
+  {
+    "id": "os_19",
+    "subject": "OS",
+    "topic": "Basics",
+    "difficulty": "Easy",
+    "source": "GeeksforGeeks",
+    "question": "What is the difference between a Hard Real-Time and Soft Real-Time system?",
+    "expected_points": [
+      "Hard: Strict deadlines; failure to meet them is a total system failure",
+      "Soft: Deadlines are important but missing them is tolerable (degraded quality)",
+      "Hard example: Airbag systems, medical equipment",
+      "Soft example: Video streaming, online gaming"
+    ],
+    "keywords": ["deadlines", "failure", "tolerable", "latency"],
+    "reference_answer": "A hard real-time system guarantees that critical tasks are completed on time; a delay can lead to catastrophic consequences. A soft real-time system gives priority to critical tasks but does not guarantee they will meet their deadline perfectly."
+  },
+  {
+    "id": "os_20",
+    "subject": "OS",
+    "topic": "Disk Management",
+    "difficulty": "Medium",
+    "source": "GeeksforGeeks",
+    "question": "What is the difference between Seek Time and Latency?",
+    "expected_points": [
+      "Seek Time: Time taken for disk arm to move to the correct track",
+      "Rotational Latency: Time taken for the correct sector to rotate under the head",
+      "Transfer Time: Time taken to actually move the data",
+      "Total Access Time = Seek Time + Latency + Transfer Time"
+    ],
+    "keywords": ["track", "sector", "disk head", "rotation"],
+    "reference_answer": "Seek time is the time required for the read/write head to move to the specific track where data is stored. Rotational latency is the time it takes for the desired sector of the disk to rotate until it is under the read/write head."
+  },
+  {
+    "id": "os_21",
+    "subject": "OS",
+    "topic": "Basics",
+    "difficulty": "Medium",
+    "source": "GeeksforGeeks",
+    "question": "What is a Trap and a Trap Door?",
+    "expected_points": [
+      "Trap: Software-generated interrupt",
+      "Caused by error (division by zero) or user request",
+      "Trap door: Secret entry point into a program",
+      "Used for debugging or bypassing security"
+    ],
+    "keywords": ["software interrupt", "exception", "security bypass", "debugging"],
+    "reference_answer": "A Trap is a software-generated interrupt caused by either an error or a specific request from a user program for an OS service. A Trap door is a secret undocumented entry point into a program used to grant access without normal methods."
+  },
+  {
+    "id": "os_22",
+    "subject": "OS",
+    "topic": "Process Management",
+    "difficulty": "Medium",
+    "source": "GeeksforGeeks",
+    "question": "What is the difference between Multiprogramming and Multitasking?",
+    "expected_points": [
+      "Multiprogramming: Keeps multiple programs in main memory to increase CPU utilization",
+      "Multitasking: Logical extension where CPU switches between jobs frequently",
+      "Multiprogramming focuses on CPU efficiency",
+      "Multitasking focuses on user responsiveness (Time-sharing)"
+    ],
+    "keywords": ["CPU utilization", "time-sharing", "responsiveness", "concurrency"],
+    "reference_answer": "Multiprogramming increases CPU utilization by always having a job for the CPU to execute. Multitasking is a logical extension of multiprogramming where the CPU switches between multiple jobs so frequently that users can interact with each program while it is running."
+  },
+  {
+    "id": "os_23",
+    "subject": "OS",
+    "topic": "Synchronization",
+    "difficulty": "Hard",
+    "source": "GeeksforGeeks",
+    "question": "What is the Dining Philosophers Problem?",
+    "expected_points": [
+      "Classic synchronization problem with limited resources",
+      "Illustrates deadlock and starvation",
+      "Five philosophers sitting at a table with five chopsticks",
+      "Requires picking up two chopsticks to eat"
+    ],
+    "keywords": ["concurrency", "deadlock", "starvation", "resource allocation"],
+    "reference_answer": "The Dining Philosophers problem is a classic synchronization challenge that models a scenario where multiple processes (philosophers) compete for a limited set of resources (chopsticks). It is used to test deadlock prevention and avoidance algorithms."
+  },
+  {
+    "id": "os_24",
+    "subject": "OS",
+    "topic": "Process Management",
+    "difficulty": "Medium",
+    "source": "GeeksforGeeks",
+    "question": "What is a Zombie Process?",
+    "expected_points": [
+      "A process that has finished execution but still has an entry in the process table",
+      "Parent has not yet read the exit status using wait()",
+      "Does not consume CPU or memory, only a process ID",
+      "Reaped when parent calls wait()"
+    ],
+    "keywords": ["process table", "wait call", "exit status", "PID"],
+    "reference_answer": "A zombie process is a process that has completed execution but still exists in the process table. This happens because the parent process needs to read its child's exit status. Once the status is read via the wait() system call, the zombie is removed."
+  },
+  {
+    "id": "os_25",
+    "subject": "OS",
+    "topic": "Process Management",
+    "difficulty": "Medium",
+    "source": "GeeksforGeeks",
+    "question": "What is an Orphan Process?",
+    "expected_points": [
+      "Process whose parent has finished or terminated",
+      "Adopted by the 'init' process (PID 1)",
+      "System reaps them automatically through init",
+      "Different from a zombie process"
+    ],
+    "keywords": ["init process", "adoption", "parent termination", "PID 1"],
+    "reference_answer": "An orphan process is a running process whose parent process has finished or terminated. In Unix-like systems, these processes are immediately adopted by the 'init' process, which eventually reaps them."
+  },
+  {
+    "id": "os_26",
+    "subject": "OS",
+    "topic": "Memory Management",
+    "difficulty": "Hard",
+    "source": "GeeksforGeeks",
+    "question": "What is Segmentation?",
+    "expected_points": [
+      "Memory management scheme that supports user view of memory",
+      "Logical address space is a collection of segments (main, func, stack)",
+      "Segments vary in length",
+      "Uses a segment table (base and limit)"
+    ],
+    "keywords": ["logical mapping", "user view", "segment table", "base and limit"],
+    "reference_answer": "Segmentation is a memory management scheme that divides a program into logical pieces like functions, objects, or arrays (segments). Unlike paging, segments are of variable length and reflect how a programmer views a program's structure."
+  },
+  {
+    "id": "os_27",
+    "subject": "OS",
+    "topic": "Memory Management",
+    "difficulty": "Medium",
+    "source": "GeeksforGeeks",
+    "question": "What is the difference between Paging and Segmentation?",
+    "expected_points": [
+      "Paging: Fixed-size blocks; Segmentation: Variable-size blocks",
+      "Paging: Physical division; Segmentation: Logical division",
+      "Paging: No external fragmentation; Segmentation: No internal fragmentation",
+      "Paging: Invisible to programmer; Segmentation: Visible to programmer"
+    ],
+    "keywords": ["fixed-size", "variable-size", "logical view", "fragmentation"],
+    "reference_answer": "Paging divides memory into fixed-sized blocks (pages/frames) and is a hardware-driven physical division. Segmentation divides memory into variable-sized logical units (segments) based on the user's view of the program."
+  },
+  {
+    "id": "os_28",
+    "subject": "OS",
+    "topic": "Scheduling",
+    "difficulty": "Medium",
+    "source": "GeeksforGeeks",
+    "question": "What is Starvation and how is it solved by Aging?",
+    "expected_points": [
+      "Starvation: Low priority process never gets the CPU",
+      "Aging: Gradually increasing the priority of processes that wait for a long time",
+      "Ensures that every process eventually executes",
+      "Common in Priority Scheduling"
+    ],
+    "keywords": ["priority scheduling", "waiting time", "indefinite postponement", "aging"],
+    "reference_answer": "Starvation occurs when a process is perpetually denied necessary resources (like CPU time). Aging is a technique used to solve starvation by gradually increasing the priority of processes that have been waiting in the system for a long time."
+  },
+  {
+    "id": "os_29",
+    "subject": "OS",
+    "topic": "Deadlocks",
+    "difficulty": "Hard",
+    "source": "GeeksforGeeks",
+    "question": "What is the Resource Allocation Graph (RAG)?",
+    "expected_points": [
+      "Visual tool to represent the state of a system",
+      "Vertices: Processes (circles) and Resources (rectangles)",
+      "Edges: Request edges and Assignment edges",
+      "Cycle in RAG indicates potential deadlock (definitely in single-instance)"
+    ],
+    "keywords": ["visual tool", "vertices", "edges", "cycle detection"],
+    "reference_answer": "A Resource Allocation Graph (RAG) is a directed graph used to track which resources are held by which processes and which processes are waiting for specific resources. It is used to detect deadlocks."
+  },
+  {
+    "id": "os_30",
+    "subject": "OS",
+    "topic": "File Systems",
+    "difficulty": "Medium",
+    "source": "GeeksforGeeks",
+    "question": "What are the different File Allocation Methods?",
+    "expected_points": [
+      "Contiguous: Files stored in consecutive blocks",
+      "Linked: Each block contains a pointer to the next",
+      "Indexed: An index block contains pointers to all data blocks",
+      "Trade-offs between speed and fragmentation"
+    ],
+    "keywords": ["contiguous", "linked list", "index block", "pointers"],
+    "reference_answer": "File allocation methods determine how disk blocks are allocated for files. Contiguous allocation is fast but suffers from fragmentation. Linked allocation avoids fragmentation but is slow for random access. Indexed allocation supports efficient random access."
+  },
+  {
+    "id": "os_31",
+    "subject": "OS",
+    "topic": "Basics",
+    "difficulty": "Easy",
+    "source": "GeeksforGeeks",
+    "question": "What is the difference between a Monolithic and Microkernel?",
+    "expected_points": [
+      "Monolithic: All OS services run in kernel space",
+      "Microkernel: Only essential services run in kernel space",
+      "Monolithic is faster (less context switching)",
+      "Microkernel is more secure and stable"
+    ],
+    "keywords": ["kernel space", "user space", "performance", "security"],
+    "reference_answer": "In a monolithic kernel, all OS services (file system, drivers, etc.) share the same kernel space, making it fast but less stable. A microkernel moves non-essential services into user space, making the system more modular and secure."
+  },
+  {
+    "id": "os_32",
+    "subject": "OS",
+    "topic": "Synchronization",
+    "difficulty": "Hard",
+    "source": "GeeksforGeeks",
+    "question": "What is the difference between a Mutex and a Binary Semaphore?",
+    "expected_points": [
+      "Mutex is an ownership mechanism (only lock holder can unlock)",
+      "Semaphore is a signaling mechanism",
+      "Mutex is specifically for Mutual Exclusion",
+      "Semaphores can be used for synchronization across threads"
+    ],
+    "keywords": ["ownership", "locking", "signaling", "synchronization"],
+    "reference_answer": "A Mutex is a locking mechanism used to ensure that only one thread can access a resource at a time, and only the thread that locked it can unlock it. A binary semaphore is a signaling mechanism used to synchronize tasks."
+  },
+  {
+    "id": "os_33",
+    "subject": "OS",
+    "topic": "Memory Management",
+    "difficulty": "Medium",
+    "source": "GeeksforGeeks",
+    "question": "What is the Page Replacement Algorithm - LRU?",
+    "expected_points": [
+      "Least Recently Used",
+      "Replaces the page that has not been used for the longest period",
+      "Requires tracking 'time of last use'",
+      "Does not suffer from Belady's Anomaly"
+    ],
+    "keywords": ["temporal locality", "page replacement", "stack algorithm", "cache"],
+    "reference_answer": "LRU (Least Recently Used) is a page replacement algorithm that replaces the page that hasn't been accessed for the longest time. It is based on the principle of temporal locality."
+  },
+  {
+    "id": "os_34",
+    "subject": "OS",
+    "topic": "Disk Management",
+    "difficulty": "Medium",
+    "source": "GeeksforGeeks",
+    "question": "What is Spooling?",
+    "expected_points": [
+      "Simultaneous Peripheral Operations On-Line",
+      "Data is held in a buffer/disk until the device is ready",
+      "Example: Print spooling",
+      "Allows CPU to overlap I/O with computation"
+    ],
+    "keywords": ["buffering", "overlap", "peripheral", "printer"],
+    "reference_answer": "Spooling (Simultaneous Peripheral Operations On-Line) is a process in which data is temporarily held in a buffer or on a disk until a peripheral device is ready to process it, preventing the CPU from being held up by slow I/O."
+  },
+  {
+    "id": "os_35",
+    "subject": "OS",
+    "topic": "Process Management",
+    "difficulty": "Medium",
+    "source": "GeeksforGeeks",
+    "question": "What is Context Switching?",
+    "expected_points": [
+      "Saving the state of a process so it can be restored later",
+      "Allows multiple processes to share a single CPU",
+      "Involves saving/loading registers and program counter",
+      "Is pure overhead"
+    ],
+    "keywords": ["state saving", "PCB", "registers", "overhead"],
+    "reference_answer": "Context switching is the process of storing the state (context) of a process or thread so that it can be paused and resumed later. This enables multitasking but represents computational overhead for the system."
+  },
+  {
+    "id": "os_36",
+    "subject": "OS",
+    "topic": "Process Management",
+    "difficulty": "Medium",
+    "source": "GeeksforGeeks",
+    "question": "What is the difference between a Process and a Program?",
+    "expected_points": [
+      "Program is a passive entity (executable file); Process is an active entity",
+      "Program exists on disk; Process exists in RAM",
+      "Process has a lifecycle (states); Program does not",
+      "Process requires resources (CPU, memory); Program is just code"
+    ],
+    "keywords": ["passive entity", "active entity", "execution", "RAM", "lifecycle"],
+    "reference_answer": "A program is a passive entity, such as a file containing a list of instructions stored on a disk. A process is an active entity—it is a program in execution, requiring resources like CPU time and memory to perform its tasks."
+  },
+  {
+    "id": "os_37",
+    "subject": "OS",
+    "topic": "Synchronization",
+    "difficulty": "Hard",
+    "source": "GeeksforGeeks",
+    "question": "What is a Monitor in the context of process synchronization?",
+    "expected_points": [
+      "High-level synchronization construct",
+      "Abstract data type that encapsulates shared data and procedures",
+      "Only one process can be active within the monitor at a time",
+      "Provides automatic mutual exclusion"
+    ],
+    "keywords": ["abstract data type", "encapsulation", "mutual exclusion", "condition variables"],
+    "reference_answer": "A monitor is a high-level synchronization construct that encapsulates shared data and the procedures that operate on that data. It ensures mutual exclusion automatically, as only one process can be executing inside the monitor at any given time."
+  },
+  {
+    "id": "os_38",
+    "subject": "OS",
+    "topic": "Basics",
+    "difficulty": "Medium",
+    "source": "GeeksforGeeks",
+    "question": "What is the difference between Clustered Systems and Distributed Systems?",
+    "expected_points": [
+      "Clustered: Multiple CPUs gathered in a single system (LAN)",
+      "Distributed: Computation distributed among physically separate nodes",
+      "Clustered systems share storage; Distributed systems share via network",
+      "Clustered focus on high availability; Distributed focus on resource sharing"
+    ],
+    "keywords": ["high availability", "LAN", "resource sharing", "network nodes"],
+    "reference_answer": "Clustered systems consist of two or more individual systems tied together via a local area network to work as one. Distributed systems involve multiple independent computers that appear to the users of the system as a single coherent computer."
+  },
+  {
+    "id": "os_39",
+    "subject": "OS",
+    "topic": "Memory Management",
+    "difficulty": "Medium",
+    "source": "GeeksforGeeks",
+    "question": "What is the difference between Logical and Physical Address Space?",
+    "expected_points": [
+      "Logical: Generated by the CPU (Virtual Address)",
+      "Physical: Actual address in the memory unit (RAM)",
+      "MMU (Memory Management Unit) performs the mapping",
+      "User programs only deal with logical addresses"
+    ],
+    "keywords": ["CPU", "RAM", "MMU", "mapping", "virtual address"],
+    "reference_answer": "A logical address is generated by the CPU and is also known as a virtual address. A physical address is the actual location in the memory hardware. The Memory Management Unit (MMU) is responsible for hardware-mapping logical addresses to physical ones."
+  },
+  {
+    "id": "os_40",
+    "subject": "OS",
+    "topic": "Process Management",
+    "difficulty": "Hard",
+    "source": "GeeksforGeeks",
+    "question": "What is Thread Pooling?",
+    "expected_points": [
+      "Creating a number of threads at process startup and placing them in a pool",
+      "Eliminates the overhead of repeated thread creation/deletion",
+      "Prevents system from being overwhelmed by too many threads",
+      "Threads return to the pool after completing a task"
+    ],
+    "keywords": ["overhead", "thread management", "startup", "resource limit"],
+    "reference_answer": "Thread pooling is a technique where a set of threads is created at startup and maintained in a 'pool' to wait for work. When a request arrives, a thread is assigned from the pool; once the task is done, the thread returns to the pool, reducing the overhead of creating new threads for every task."
+  },
+  {
+    "id": "os_41",
+    "subject": "OS",
+    "topic": "I/O Management",
+    "difficulty": "Medium",
+    "source": "GeeksforGeeks",
+    "question": "What is Direct Memory Access (DMA)?",
+    "expected_points": [
+      "Allows I/O devices to transfer data directly to/from memory",
+      "Bypasses the CPU for data transfer",
+      "CPU is only involved at the start and end of transfer",
+      "Improves system performance by freeing up the CPU"
+    ],
+    "keywords": ["bypass CPU", "data transfer", "controller", "interrupt"],
+    "reference_answer": "DMA is a feature that allows certain hardware subsystems to access main system memory independently of the CPU. The DMA controller manages the data transfer between the I/O device and memory, only interrupting the CPU once the entire block of data has been transferred."
+  },
+  {
+    "id": "os_42",
+    "subject": "OS",
+    "topic": "Security",
+    "difficulty": "Medium",
+    "source": "GeeksforGeeks",
+    "question": "What is the difference between Authentication and Authorization?",
+    "expected_points": [
+      "Authentication: Verifying who a user is (Identity)",
+      "Authorization: Verifying what a user can do (Permissions)",
+      "Authentication uses passwords/biometrics",
+      "Authorization uses Access Control Lists (ACLs)"
+    ],
+    "keywords": ["identity", "permissions", "ACL", "verification"],
+    "reference_answer": "Authentication is the process of verifying the identity of a user (proving who you are). Authorization is the process of verifying that the authenticated user has the necessary permissions to access a specific resource or perform an action."
+  },
+  {
+    "id": "os_43",
+    "subject": "OS",
+    "topic": "Basics",
+    "difficulty": "Easy",
+    "source": "GeeksforGeeks",
+    "question": "What is the difference between 32-bit and 64-bit OS?",
+    "expected_points": [
+      "Refers to the width of the CPU registers",
+      "32-bit supports max 4GB RAM",
+      "64-bit supports much larger memory (theoretically 16EB)",
+      "64-bit can process more data per clock cycle"
+    ],
+    "keywords": ["RAM limit", "registers", "data processing", "architecture"],
+    "reference_answer": "The main difference lies in the amount of data the CPU can handle and the memory it can address. A 32-bit system can address a maximum of 4GB of RAM, while a 64-bit system can address much larger amounts, leading to better performance in memory-intensive tasks."
+  },
+  {
+    "id": "os_44",
+    "subject": "OS",
+    "topic": "Scheduling",
+    "difficulty": "Medium",
+    "source": "GeeksforGeeks",
+    "question": "Explain the Multi-level Queue Scheduling.",
+    "expected_points": [
+      "Partitions the ready queue into several separate queues",
+      "Processes are permanently assigned to one queue based on type (e.g., foreground/background)",
+      "Each queue has its own scheduling algorithm",
+      "Scheduling must be done between the queues"
+    ],
+    "keywords": ["partition", "foreground", "background", "priority"],
+    "reference_answer": "Multi-level Queue Scheduling partitions the ready queue into several separate queues based on process properties like priority or type. For example, interactive (foreground) processes might be in one queue using Round Robin, while batch (background) processes are in another using FCFS."
+  },
+  {
+    "id": "os_45",
+    "subject": "OS",
+    "topic": "Memory Management",
+    "difficulty": "Medium",
+    "source": "GeeksforGeeks",
+    "question": "What is a Page Table and what is its role?",
+    "expected_points": [
+      "Data structure used by the OS to store mapping between virtual and physical addresses",
+      "Each entry maps a page number to a frame number",
+      "Stored in main memory",
+      "Role: Enable the CPU to access physical memory using logical addresses"
+    ],
+    "keywords": ["mapping", "virtual to physical", "frame number", "page number"],
+    "reference_answer": "A Page Table is a data structure used by a virtual memory system to store the mapping between the logical addresses of a process and the physical addresses in RAM. It allows the system to retrieve the correct 'frame' for a requested 'page'."
+  },
+  {
+    "id": "os_46",
+    "subject": "OS",
+    "topic": "Process Management",
+    "difficulty": "Medium",
+    "source": "GeeksforGeeks",
+    "question": "What is the difference between a Pipe and a Named Pipe?",
+    "expected_points": [
+      "Pipe (Anonymous): Used for communication between related processes (parent-child)",
+      "Named Pipe (FIFO): Used for communication between unrelated processes",
+      "Anonymous pipes are temporary; Named pipes exist in the file system",
+      "Anonymous pipes are unidirectional; Named pipes can be bidirectional"
+    ],
+    "keywords": ["IPC", "parent-child", "FIFO", "unrelated processes"],
+    "reference_answer": "Anonymous pipes are used for communication between a parent and child process and vanish once the processes finish. Named pipes (FIFOs) appear as files in the file system and allow totally unrelated processes to communicate with each other."
+  },
+  {
+    "id": "os_47",
+    "subject": "OS",
+    "topic": "Disk Management",
+    "difficulty": "Medium",
+    "source": "GeeksforGeeks",
+    "question": "What is Disk Formatting?",
+    "expected_points": [
+      "Process of preparing a data storage device for initial use",
+      "Low-level formatting: Creating sectors on the disk surface",
+      "High-level formatting: Creating the file system (FAT, NTFS, etc.)",
+      "Erases all existing data on the disk"
+    ],
+    "keywords": ["file system", "sectors", "initialization", "partition"],
+    "reference_answer": "Disk formatting is the process of preparing a disk for use by the OS. Low-level formatting divides the disk into sectors, while high-level formatting creates the file system structures necessary for the OS to read and write files."
+  },
+  {
+    "id": "os_48",
+    "subject": "OS",
+    "topic": "Synchronization",
+    "difficulty": "Medium",
+    "source": "GeeksforGeeks",
+    "question": "What is the Producer-Consumer Problem?",
+    "expected_points": [
+      "Classic multi-process synchronization problem",
+      "Producer puts data into a fixed-size buffer; Consumer takes it out",
+      "Issue: Producer must not add to full buffer; Consumer must not take from empty",
+      "Solved using semaphores or mutexes"
+    ],
+    "keywords": ["buffer", "bounded-buffer", "synchronization", "concurrency"],
+    "reference_answer": "The Producer-Consumer (or Bounded-Buffer) problem involves two processes sharing a fixed-size buffer. The producer generates data and puts it into the buffer, while the consumer consumes it. Synchronization is required to ensure the producer doesn't add to a full buffer and the consumer doesn't empty an already empty one."
+  },
+  {
+    "id": "os_49",
+    "subject": "OS",
+    "topic": "Basics",
+    "difficulty": "Easy",
+    "source": "GeeksforGeeks",
+    "question": "What is the difference between GUI and CLI?",
+    "expected_points": [
+      "GUI: Graphical User Interface (Icons, Windows, Mouse)",
+      "CLI: Command Line Interface (Text commands, Keyboard)",
+      "GUI is more user-friendly; CLI is more powerful for automation",
+      "GUI consumes more system resources"
+    ],
+    "keywords": ["graphical", "text-based", "user-friendly", "automation"],
+    "reference_answer": "GUI uses visual elements like icons and menus to interact with the system, making it easier for beginners. CLI requires the user to type text commands, which is often faster and more efficient for advanced users and scripting."
+  },
+  {
+    "id": "os_50",
+    "subject": "OS",
+    "topic": "Kernel",
+    "difficulty": "Hard",
+    "source": "GeeksforGeeks",
+    "question": "What is a Layered Approach in OS structure?",
+    "expected_points": [
+      "Breaking the OS into a number of layers (levels)",
+      "Each layer is built on top of lower layers",
+      "Layer 0 is hardware; Layer N is user interface",
+      "Pros: Simplicity of debugging; Cons: Performance overhead"
+    ],
+    "keywords": ["hierarchy", "abstraction", "modular", "debugging"],
+    "reference_answer": "In the layered approach, the OS is divided into a number of levels, each constructed on top of lower levels. The bottom layer (Layer 0) is the hardware, and the top layer is the user interface. This makes development and debugging easier, as each layer only uses the functions of the layer below it."
+  }
+
+]
