@@ -3,67 +3,49 @@ const express = require('express');
 const fs = require('fs');
 const cors = require('cors');
 const { VertexAI } = require('@google-cloud/vertexai');
-const { GoogleAuth } = require('google-auth-library');
 
-// Use dynamic import for node-fetch to match your seed.js style
-const fetch = (...args) => import('node-fetch').then(({default: fetch}) => fetch(...args));
+const { handleSearch } = require('./backend/search');
+const { handleAnalysis } = require('./backend/judge');
+const { transcribeAudio } = require('./backend/stt');
 
 const app = express();
-app.use(express.json());
+app.use(express.json({ limit: '50mb' })); // Increased limit for audio data
 app.use(cors());
 
-// --- AUTHENTICATION SETUP ---
 process.env.GOOGLE_APPLICATION_CREDENTIALS = './credentials/google-cloud-key.json';
 
 const vertex_ai = new VertexAI({
     project: process.env.GOOGLE_CLOUD_PROJECT_ID,
-    location: 'us-central1' 
+    location: 'us-central1'
 });
 
-// Load Database
-const VECTOR_DB = JSON.parse(fs.readFileSync('./data/questions_with_vectors.json', 'utf8'));
+// Load all question banks
+const QUESTION_BANKS = {
+    dsa: JSON.parse(fs.readFileSync('./data/questions_with_vectors.json', 'utf8')),
+    dbms: JSON.parse(fs.readFileSync('./data/dbms_questions_with_vectors.json', 'utf8')),
+    os: JSON.parse(fs.readFileSync('./data/os_questions_with_vectors.json', 'utf8')),
+    oops: JSON.parse(fs.readFileSync('./data/oops_questions_with_vectors.json', 'utf8'))
+};
 
-// Initialize Judge Model
-const generativeModel = vertex_ai.getGenerativeModel({
-    model: 'gemini-2.5-flash',
-});
+const generativeModel = vertex_ai.getGenerativeModel({ model: 'gemini-2.0-flash-exp' });
 
-// Helper function to get Access Token (Matching your seed.js)
-async function getAccessToken() {
-    const auth = new GoogleAuth({
-        keyFilename: process.env.GOOGLE_APPLICATION_CREDENTIALS,
-        scopes: ['https://www.googleapis.com/auth/cloud-platform'],
-    });
-    const client = await auth.getClient();
-    const token = await client.getAccessToken();
-    return token.token;
-}
 
-// Similarity Function
-function getSimilarity(vecA, vecB) {
-    if (!vecA || !vecB) return 0;
-    let dotProduct = 0;
-    let normA = 0;
-    let normB = 0;
-    for (let i = 0; i < vecA.length; i++) {
-        dotProduct += vecA[i] * vecB[i];
-        normA += vecA[i] * vecA[i];
-        normB += vecB[i] * vecB[i];
-    }
-    return dotProduct / (Math.sqrt(normA) * Math.sqrt(normB));
-}
+// --- ROUTES ---
 
-app.get("/filters", (req, res) => {
-    const companies = new Set();
-    const difficulties = new Set();
-    const topics = new Set();
+// Get filters for a specific subject
+app.get("/filters/:subject", (req, res) => {
+    const subject = req.params.subject;
+    const VECTOR_DB = QUESTION_BANKS[subject] || QUESTION_BANKS.dsa;
 
+    const companies = new Set(), difficulties = new Set(), topics = new Set();
     VECTOR_DB.forEach(q => {
-        if(q.metadata.companies) q.metadata.companies.forEach(c => companies.add(c));
-        if(q.metadata.difficulty) difficulties.add(q.metadata.difficulty);
-        if(q.metadata.topics) q.metadata.topics.forEach(t => topics.add(t));
+        if (q.metadata?.companies) q.metadata.companies.forEach(c => companies.add(c));
+        if (q.metadata?.difficulty) difficulties.add(q.metadata.difficulty);
+        if (q.metadata?.topics) q.metadata.topics.forEach(t => topics.add(t));
+        // For theory subjects, also check for direct properties
+        if (q.difficulty) difficulties.add(q.difficulty);
+        if (q.topic) topics.add(q.topic);
     });
-
     res.json({
         companies: Array.from(companies).sort(),
         difficulties: Array.from(difficulties).sort(),
@@ -71,227 +53,101 @@ app.get("/filters", (req, res) => {
     });
 });
 
-// --- UPDATED SEARCH ROUTE (RANDOM QUESTION) ---
+// Legacy route for backward compatibility
+app.get("/filters", (req, res) => {
+    const VECTOR_DB = QUESTION_BANKS.dsa;
+    const companies = new Set(), difficulties = new Set(), topics = new Set();
+    VECTOR_DB.forEach(q => {
+        if (q.metadata?.companies) q.metadata.companies.forEach(c => companies.add(c));
+        if (q.metadata?.difficulty) difficulties.add(q.metadata.difficulty);
+        if (q.metadata?.topics) q.metadata.topics.forEach(t => topics.add(t));
+    });
+    res.json({
+        companies: Array.from(companies).sort(),
+        difficulties: Array.from(difficulties).sort(),
+        topics: Array.from(topics).sort()
+    });
+});
+
+// Search for a question in a specific subject
+app.post('/search/:subject', async (req, res) => {
+    try {
+        const subject = req.params.subject;
+        const VECTOR_DB = QUESTION_BANKS[subject] || QUESTION_BANKS.dsa;
+        const result = await handleSearch(VECTOR_DB, req.body, false);
+        result ? res.json(result) : res.status(404).json({ error: "No matches found." });
+    } catch (e) { res.status(500).json({ error: e.message }); }
+});
+
+// Legacy search route
 app.post('/search', async (req, res) => {
     try {
-        const { query, companyFilter, difficultyFilter, topicFilter } = req.body;
-        let candidates = VECTOR_DB;
-        
-        if (companyFilter && companyFilter !== "All") {
-            candidates = candidates.filter(q => q.metadata.companies.includes(companyFilter));
-        }
-        if (difficultyFilter && difficultyFilter !== "All") {
-            candidates = candidates.filter(q => q.metadata.difficulty === difficultyFilter);
-        }
-        if (topicFilter && topicFilter !== "All") {
-            candidates = candidates.filter(q => q.metadata.topics.includes(topicFilter));
-        }
-
-        if (candidates.length === 0) {
-            return res.status(404).json({ error: "No matching questions found." });
-        }
-
-        // 1. Get Token and Setup Vertex REST Call
-        const token = await getAccessToken();
-        const projectId = process.env.GOOGLE_CLOUD_PROJECT_ID;
-        const location = 'us-central1';
-        const endpoint = `https://${location}-aiplatform.googleapis.com/v1/projects/${projectId}/locations/${location}/publishers/google/models/text-embedding-004:predict`;
-
-        // 2. Generate Query Embedding via REST (to match seed.js)
-        const response = await fetch(endpoint, {
-            method: 'POST',
-            headers: {
-                'Authorization': `Bearer ${token}`,
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-                instances: [{ content: query || "coding question" }],
-            }),
-        });
-
-        const result = await response.json();
-        
-        // Extract vector correctly from REST response
-        if (!result.predictions || !result.predictions[0]) {
-            throw new Error("Embedding API failed to return a vector.");
-        }
-        const queryVector = result.predictions[0].embeddings.values;
-
-        // 3. Perform Similarity Search
-        const rankedResults = candidates.map(q => ({
-            ...q,
-            similarity: getSimilarity(queryVector, q.embedding)
-        })).sort((a, b) => b.similarity - a.similarity);
-
-        // 🎲 PICK A RANDOM QUESTION FROM TOP 10 RESULTS (or less if fewer available)
-        const topCount = Math.min(10, rankedResults.length);
-        const randomIndex = Math.floor(Math.random() * topCount);
-        const selectedQuestion = { ...rankedResults[randomIndex] };
-        
-        delete selectedQuestion.embedding; 
-        res.json(selectedQuestion);
-
-    } catch (error) {
-        console.error("Search Error:", error);
-        res.status(500).json({ error: "Search failed", details: error.message });
-    }
+        const result = await handleSearch(QUESTION_BANKS.dsa, req.body, false);
+        result ? res.json(result) : res.status(404).json({ error: "No matches found." });
+    } catch (e) { res.status(500).json({ error: e.message }); }
 });
 
-// --- NEW ROUTE: GET ALL MATCHING QUESTIONS ---
+// Search all questions in a specific subject
+app.post('/search-all/:subject', async (req, res) => {
+    try {
+        const subject = req.params.subject;
+        const VECTOR_DB = QUESTION_BANKS[subject] || QUESTION_BANKS.dsa;
+        const results = await handleSearch(VECTOR_DB, req.body, true);
+        results ? res.json(results) : res.status(404).json({ error: "No matches found." });
+    } catch (e) { res.status(500).json({ error: e.message }); }
+});
+
+// Legacy search-all route
 app.post('/search-all', async (req, res) => {
     try {
-        const { query, companyFilter, difficultyFilter, topicFilter } = req.body;
-        let candidates = VECTOR_DB;
-        
-        if (companyFilter && companyFilter !== "All") {
-            candidates = candidates.filter(q => q.metadata.companies.includes(companyFilter));
-        }
-        if (difficultyFilter && difficultyFilter !== "All") {
-            candidates = candidates.filter(q => q.metadata.difficulty === difficultyFilter);
-        }
-        if (topicFilter && topicFilter !== "All") {
-            candidates = candidates.filter(q => q.metadata.topics.includes(topicFilter));
-        }
-
-        if (candidates.length === 0) {
-            return res.status(404).json({ error: "No matching questions found." });
-        }
-
-        // 1. Get Token and Setup Vertex REST Call
-        const token = await getAccessToken();
-        const projectId = process.env.GOOGLE_CLOUD_PROJECT_ID;
-        const location = 'us-central1';
-        const endpoint = `https://${location}-aiplatform.googleapis.com/v1/projects/${projectId}/locations/${location}/publishers/google/models/text-embedding-004:predict`;
-
-        // 2. Generate Query Embedding via REST
-        const response = await fetch(endpoint, {
-            method: 'POST',
-            headers: {
-                'Authorization': `Bearer ${token}`,
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-                instances: [{ content: query || "coding question" }],
-            }),
-        });
-
-        const result = await response.json();
-        
-        if (!result.predictions || !result.predictions[0]) {
-            throw new Error("Embedding API failed to return a vector.");
-        }
-        const queryVector = result.predictions[0].embeddings.values;
-
-        // 3. Perform Similarity Search and return ALL results (sorted)
-        const rankedResults = candidates.map(q => ({
-            id: q.id,
-            title: q.title,
-            difficulty: q.metadata.difficulty,
-            topics: q.metadata.topics,
-            companies: q.metadata.companies,
-            similarity: getSimilarity(queryVector, q.embedding)
-        })).sort((a, b) => b.similarity - a.similarity);
-
-        res.json(rankedResults);
-
-    } catch (error) {
-        console.error("Search All Error:", error);
-        res.status(500).json({ error: "Search failed", details: error.message });
-    }
+        const results = await handleSearch(QUESTION_BANKS.dsa, req.body, true);
+        results ? res.json(results) : res.status(404).json({ error: "No matches found." });
+    } catch (e) { res.status(500).json({ error: e.message }); }
 });
 
-// --- NEW ROUTE: GET QUESTION BY ID ---
+// Get question by ID from a specific subject
+app.get('/question/:subject/:id', (req, res) => {
+    const subject = req.params.subject;
+    const VECTOR_DB = QUESTION_BANKS[subject] || QUESTION_BANKS.dsa;
+    const question = VECTOR_DB.find(q => q.id === req.params.id);
+    if (!question) return res.status(404).json({ error: "Not found" });
+    const { embedding, ...rest } = question;
+    res.json(rest);
+});
+
+// Legacy question route
 app.get('/question/:id', (req, res) => {
-    const questionId = req.params.id;
-    const question = VECTOR_DB.find(q => q.id === questionId);
-    
-    if (!question) {
-        return res.status(404).json({ error: "Question not found" });
-    }
-    
-    const questionCopy = { ...question };
-    delete questionCopy.embedding;
-    res.json(questionCopy);
+    const question = QUESTION_BANKS.dsa.find(q => q.id === req.params.id);
+    if (!question) return res.status(404).json({ error: "Not found" });
+    const { embedding, ...rest } = question;
+    res.json(rest);
 });
 
-// --- VERTEX AI JUDGE ROUTE ---
+// Speech-to-Text endpoint
+app.post('/transcribe', async (req, res) => {
+    try {
+        const { audio } = req.body; // Base64 encoded audio
+        if (!audio) {
+            return res.status(400).json({ error: "No audio data provided" });
+        }
+
+        const audioBuffer = Buffer.from(audio, 'base64');
+        const transcription = await transcribeAudio(audioBuffer);
+
+        res.json({ transcription });
+    } catch (e) {
+        console.error('Transcription error:', e);
+        res.status(500).json({ error: e.message });
+    }
+});
+
+// AI Analysis endpoint
 app.post('/analyze', async (req, res) => {
     try {
-        const { code, transcript, questionTitle, judgeContext } = req.body;
-        console.log("--- SUBMISSION RECEIVED (VERTEX AI) ---");
-
-        const prompt = 
-        {
-            contents: [{
-                role: 'user',
-                parts: [{
-                    text: `You are an expert technical interview judge evaluating a candidate's coding solution.
-                    
-                    Question: ${questionTitle}
-                    Expected Solution/Logic: ${JSON.stringify(judgeContext)}
-                    
-                    Candidate's Code:
-                    ${code}
-                    
-                    Candidate's Verbal Explanation:
-                    ${transcript}
-                    
-                    Analyze and evaluate comprehensively. Return ONLY a valid JSON object with this exact structure:
-                    {
-                        "score": <number 0-100>,
-                        "breakdown": {
-                            "correctness": <number 0-100>,
-                            "efficiency": <number 0-100>,
-                            "communication": <number 0-100>
-                        },
-                        "complexity": {
-                            "time": "<Big O notation with brief explanation>",
-                            "space": "<Big O notation with brief explanation>",
-                            "optimal": <boolean - true if optimal, false otherwise>
-                        },
-                        "improvements": {
-                            "code": ["<specific code improvement 1>", "<specific code improvement 2>"],
-                            "communication": ["<specific communication improvement 1>", "<specific communication improvement 2>"],
-                            "approach": "<alternative approach if applicable, or 'Current approach is optimal'>"
-                        },
-                        "feedback": "<Detailed constructive advice covering correctness, efficiency, and communication>",
-                        "report": "<A concise 2-3 sentence summary of overall performance>"
-                    }
-                    
-                    Evaluation Guidelines:
-                    - Correctness: Does the code solve the problem? Are edge cases handled?
-                    - Efficiency: Time and space complexity analysis. Compare to optimal solution.
-                    - Communication: Was the explanation clear, structured, and technically accurate?
-                    - Be specific in improvements - mention exact lines or concepts to address
-                    - If complexity can be improved, suggest how in the improvements section
-                    `
-                }]
-            }],
-            generationConfig: {
-                responseMimeType: "application/json",
-            }
-        };
-        
-        const result = await generativeModel.generateContent(prompt);
-        const response = await result.response;
-        const text = response.candidates[0].content.parts[0].text;
-
-        console.log("AI Evaluation Complete.");
-        const evaluation = JSON.parse(text);
-        
-        // Optional: Add validation to ensure all fields are present
-        if (!evaluation.complexity || !evaluation.improvements) {
-            console.warn("Incomplete evaluation received, using defaults");
-            evaluation.complexity = evaluation.complexity || { time: "N/A", space: "N/A", optimal: false };
-            evaluation.improvements = evaluation.improvements || { code: [], communication: [], approach: "N/A" };
-        }
-        
+        const evaluation = await handleAnalysis(generativeModel, req.body);
         res.json(evaluation);
-
-    } catch (error) {
-        console.error("VERTEX ANALYSIS ERROR:", error.message);
-        res.status(500).json({ error: "Analysis failed", details: error.message });
-    }
+    } catch (e) { res.status(500).json({ error: e.message }); }
 });
 
-app.listen(3000, () => console.log("🚀 Vertex AI Server running on port 3000"));
+
+app.listen(3000, () => console.log("🚀 Server running on port 3000"));
